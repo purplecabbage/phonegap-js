@@ -7,30 +7,17 @@
     <link rel="stylesheet" type="text/css" href="qunit.css" />
 	<script type="text/javascript" src="qunit.js"></script>
 	
-    <script type="text/javascript" src="../src/desktop/phonegap.js"></script>
+    <!-- JavaScript to test -->
     
+    <script type="text/javascript" src="../src/desktop/phonegap.js"></script>
     <script type="text/javascript" src="../src/eventtarget.js"></script>    
     <script type="text/javascript" src="../src/common.js"></script>
     <script type="text/javascript" src="../src/notification.js"></script>
     
-    <script type="text/javascript">
-        function Tests() {
-            this.TEST_TIMEOUT = 15000;
-        };
-        
-        var tests = new Tests();
-
-        // Runs each function in Tests that contains 'Tests' in the name.
-        function run() {
-            for (var t in tests) {
-                if (t.indexOf('Tests') > -1) {
-                    tests[t]();
-                }
-            }
-        }
-
-        document.addEventListener('deviceready', run, false);
-    </script>
+    <!-- Helps coordinate the tests with 'deviceready' event -->
+    <script type="text/javascript" src="test_runner.js"></script>
+    
+    <!-- Tests to use -->
     
     <script type="text/javascript" src="tests/eventtarget.test.js"></script>
     <script type="text/javascript" src="tests/notification.test.js"></script>

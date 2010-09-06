@@ -58,10 +58,40 @@ var PhoneGap = {
 
 PhoneGap.commandManager = {
     exec: function(clazz, action, callbackId, args) {
-        if (callbackId) {
-            PhoneGap.callbackSuccess(callbackId, args);
+        switch(clazz.toLowerCase()) {
+            case 'com.phonegap.notification':
+                return PhoneGap.commandManager.callNotification(action, callbackId, args);
+                break;
         }
         
-        return true;
+        return false;
+    },
+    
+    callNotification: function(action, callbackId, args) {
+        args = JSON.parse(args);
+        switch(action.toLowerCase()) {
+            case 'vibrate':
+                console.log('Vvvvibrate...');
+                return true;
+                break;
+            case 'beep':
+                console.log('BEEP!');
+                return true;
+                break;
+            case 'blink':
+                console.log('LED blinks');
+                return true;
+                break;
+            case 'alert':
+                alert(args[0]);
+                return true;
+                break;
+        }
+        
+        return false;
     }
-}
+};
+
+document.addEventListener('DOMContentLoaded', function() {
+    PhoneGap.onNativeReady.fire();
+}, false);
