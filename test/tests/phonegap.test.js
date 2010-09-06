@@ -181,6 +181,10 @@ Tests.prototype.PhoneGapTests = function() {
         }
         ok(!hasHandler, 'there should be no handlers attached to onDeviceReady by default');
 
+        // Ensure the event listener does not fire immediately
+        var onDeviceReadyFired = PhoneGap.onDeviceReady.fired;
+        PhoneGap.onDeviceReady.fired = false;
+        
         PhoneGap.desktop = false;
         
         document.addEventListener('deviceready', function() {}, false);
@@ -192,7 +196,8 @@ Tests.prototype.PhoneGapTests = function() {
             handlers++;
         }
         equal(handlers, 1, 'after adding the deviceready event listener onDeviceReady should have one handler');
-
+        
+        PhoneGap.onDeviceReady.fired = onDeviceReadyFired;
     })
 };
 
