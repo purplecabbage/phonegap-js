@@ -8,13 +8,6 @@ Tests.prototype.AccelerometerTests = function() {
   		expect(1);
   		
   		stop();
-  		
-  		// Android
-    	CommandManager = {
-    	    exec: function(clazz, action, callbackId, jsonArgsString) {
-    	        PhoneGap.callbackSuccess(callbackId, {x:23});
-            }
-    	}
 
     	phonegap.accelerometer.getCurrentAcceleration(function(args) {
     	    equal(args.x, 23, 'x should be 23');

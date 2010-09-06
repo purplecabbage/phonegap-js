@@ -8,13 +8,6 @@ Tests.prototype.GeolocationTests = function() {
   		expect(1);
   		
   		stop();
-  		
-  		// Android
-    	CommandManager = {
-    	    exec: function(clazz, action, callbackId, jsonArgsString) {
-    	        PhoneGap.callbackSuccess(callbackId, {lat:23});
-            }
-    	}
 
     	phonegap.geolocation.getCurrentPosition(function(args) {
     	    equal(args.coords.latitude, 23, 'latitude should be 23');
@@ -25,29 +18,6 @@ Tests.prototype.GeolocationTests = function() {
   		expect(5);
   		
   		stop();
-
-        // Android
-        CommandManager = {
-            execWatch: function(clazz, action, callbackId, jsonArgsString) {
-                switch (action) {
-                    case 'watchPosition':
-                        setTimeout(function() {
-                                PhoneGap.callbackWatchSuccess(callbackId, {lat:23});
-                            }, 100);
-                        return 0;
-                        break;
-                    default:
-                }
-            }, 
-            exec: function(clazz, action, callbackId, jsonArgsString) {
-                switch (action) {
-                    case 'clearWatch':
-                        return 0;
-                        break;
-                    default:
-                }
-            }
-        };
 
     	var watchId = phonegap.geolocation.watchPosition(function(args) {
     	    }, function() {}, {frequency: 1000});

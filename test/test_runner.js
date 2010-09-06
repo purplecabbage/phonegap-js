@@ -13,4 +13,6 @@ function run() {
     }
 }
 
-document.addEventListener('deviceready', run, false);
+document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('deviceready', run, false);
+}, false);
