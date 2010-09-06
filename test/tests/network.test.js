@@ -19,21 +19,12 @@ Tests.prototype.NetworkTests = function() {
         expect(1);
         stop();
         
- 	   //Android
- 	   CommandManager = {
-            exec: function(clazz, action, callbackId, jsonArgsString) {
-                 switch (action) {
-                     case 'isReachable':
-                         PhoneGap.callbackSuccess(callbackId, {code:NetworkStatus.NOT_REACHABLE});
-                         break;
-                     default:
-                 }
-             }
- 	   };
-
         var hostname = "http://www.google.com";
         var win = function(p) {
-            ok(p.code == NetworkStatus.NOT_REACHABLE || p.code == NetworkStatus.REACHABLE_VIA_CARRIER_DATA_NETWORK || p.code == NetworkStatus.REACHABLE_VIA_WIFI_NETWORK, "Success callback in isReachable returns a proper object with a 'code' member equal to a NetworkStatus constant.");
+            ok(p.code == NetworkStatus.NOT_REACHABLE ||
+               p.code == NetworkStatus.REACHABLE_VIA_CARRIER_DATA_NETWORK ||
+               p.code == NetworkStatus.REACHABLE_VIA_WIFI_NETWORK,
+               "Success callback in isReachable returns a proper object with a 'code' member equal to a NetworkStatus constant.");
             start();
         };
         phonegap.network.isReachable(hostname, win);

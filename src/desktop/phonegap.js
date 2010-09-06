@@ -62,6 +62,20 @@ PhoneGap.commandManager = {
             case 'com.phonegap.notification':
                 return PhoneGap.commandManager.callNotification(action, callbackId, args);
                 break;
+            case 'com.phonegap.network':
+                return PhoneGap.commandManager.callNetwork(action, callbackId, args);
+                break;
+        }
+        
+        return false;
+    },
+    
+    callNetwork: function(action, callbackId, args) {
+        switch(action) {
+            case 'isReachable':
+                PhoneGap.callbackSuccess(callbackId, { 'code': NetworkStatus.REACHABLE_VIA_WIFI_NETWORK });
+                return true;
+                break;
         }
         
         return false;
