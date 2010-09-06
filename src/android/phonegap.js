@@ -3,7 +3,7 @@
  * information about the state of PhoneGap.
  * @class
  */
-var phonegap = { };
+var PhoneGap = { };
 
 PhoneGap.desktop = false;
 

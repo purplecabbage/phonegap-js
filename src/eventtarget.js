@@ -18,11 +18,10 @@ interface EventListener {
 };
 */
 
-
 /**
  * Custom pub-sub channel that can have functions subscribed to it
  */
-Channel = function(type) {
+PhoneGap.Channel = function(type) {
     this.type = type;
     this.handlers = {};
     this.guid = 0;
@@ -37,7 +36,7 @@ Channel = function(type) {
  * and a guid that can be used to stop subscribing to the channel.
  * Returns the guid.
  */
-Channel.prototype.subscribe = function(f, c, g) {
+PhoneGap.Channel.prototype.subscribe = function(f, c, g) {
     // need a function to call
     if (f == null) { return; }
 
@@ -55,7 +54,7 @@ Channel.prototype.subscribe = function(f, c, g) {
  * Like subscribe but the function is only called once and then it
  * auto-unsubscribes itself.
  */
-Channel.prototype.subscribeOnce = function(f, c) {
+PhoneGap.Channel.prototype.subscribeOnce = function(f, c) {
     var g = null;
     var _this = this;
     var m = function() {
@@ -74,7 +73,7 @@ Channel.prototype.subscribeOnce = function(f, c) {
 /** 
  * Unsubscribes the function with the given guid from the channel.
  */
-Channel.prototype.unsubscribe = function(g) {
+PhoneGap.Channel.prototype.unsubscribe = function(g) {
     if (g instanceof Function) { g = g.observer_guid; }
     this.handlers[g] = null;
     delete this.handlers[g];
@@ -83,7 +82,7 @@ Channel.prototype.unsubscribe = function(g) {
 /** 
  * Calls all functions subscribed to this channel.
  */
-Channel.prototype.fire = function(e) {
+PhoneGap.Channel.prototype.fire = function(e) {
     if (this.enabled) {
         var fail = false;
         for (var item in this.handlers) {
@@ -104,7 +103,7 @@ Channel.prototype.fire = function(e) {
  * Calls the provided function only after all of the channels specified
  * have been fired.
  */
-Channel.join = function(h, c) {
+PhoneGap.Channel.join = function(h, c) {
     var i = c.length;
     var f = function() {
         if (!(--i)) h();
