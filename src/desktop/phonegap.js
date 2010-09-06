@@ -57,52 +57,76 @@ var PhoneGap = {
 };
 
 PhoneGap.commandManager = {
-    exec: function(clazz, action, callbackId, args) {
-        switch(clazz.toLowerCase()) {
-            case 'com.phonegap.notification':
-                return PhoneGap.commandManager.callNotification(action, callbackId, args);
-                break;
-            case 'com.phonegap.network':
-                return PhoneGap.commandManager.callNetwork(action, callbackId, args);
-                break;
-        }
-        
-        return false;
-    },
-    
-    callNetwork: function(action, callbackId, args) {
-        switch(action) {
-            case 'isReachable':
+    klasses: {
+        'com.phonegap.Accelerometer': {
+            getCurrentAcceleration: function(callbackId, jsonArgsString) {
+                PhoneGap.callbackSuccess(callbackId, { x:23 });
+                return true;
+            }
+        },
+        'com.phonegap.Camera': {
+            getPicture: function(callbackId, jsonArgsString) {
+                PhoneGap.callbackSuccess(callbackId, { path: 'foo' });
+                return true;
+            }
+        },
+        'com.phonegap.Geolocation': {
+            clearWatch: function(callbackId, jsonArgsString) {
+                return 0;
+            },
+            getCurrentPosition: function(callbackId, jsonArgsString) {
+                PhoneGap.callbackSuccess(callbackId, { lat:23 });
+                return true;
+            },
+            watchPosition: function(callbackId, jsonArgsString) {
+                setTimeout(function() {
+                    PhoneGap.callbackWatchSuccess(callbackId, { lat:23 });
+                }, 100);
+                return 0;
+            }
+        },
+        'com.phonegap.Network': {
+            isReachable: function(callbackId, jsonArgsString) {
                 PhoneGap.callbackSuccess(callbackId, { 'code': NetworkStatus.REACHABLE_VIA_WIFI_NETWORK });
                 return true;
-                break;
-        }
-        
-        return false;
-    },
-    
-    callNotification: function(action, callbackId, args) {
-        args = JSON.parse(args);
-        switch(action.toLowerCase()) {
-            case 'vibrate':
-                console.log('Vvvvibrate...');
-                return true;
-                break;
-            case 'beep':
-                console.log('BEEP!');
-                return true;
-                break;
-            case 'blink':
-                console.log('LED blinks');
-                return true;
-                break;
-            case 'alert':
+            }
+        },
+        'com.phonegap.Notification': {
+            alert:   function(callbackId, jsonArgsString) {
+                jsonArgsString = JSON.parse(jsonArgsString);
                 alert(args[0]);
                 return true;
-                break;
+            },
+            beep:    function() {
+                console.log('BEEP!');
+                return true;
+            },
+            blink:   function() {
+                console.log('LED blinks');
+                return true;
+            },
+            vibrate: function() {
+                console.log('Vvvvibrate...');
+                return true;
+            }
         }
-        
-        return false;
+    },
+    exec: function(clazz, action, callbackId, jsonArgsString) {
+        try {
+            return this.klasses[clazz][action](callbackId, jsonArgsString);
+        }
+        catch(e) {
+            console.log('Exception fired');
+            return -1;
+        }
+    },
+    execWatch: function(clazz, action, callbackId, jsonArgsString) {
+        try {
+            return this.klasses[clazz][action](callbackId, jsonArgsString);
+        }
+        catch(e) {
+            return -1;
+        }
     }
 };
 
