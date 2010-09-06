@@ -27,7 +27,7 @@ Notification.prototype.beep = function(count, volume) {
  * @param {String} [buttonLabel="OK"] Label of the close button (default: OK)
  */
 Notification.prototype.alert = function(successCallback, errorCallback, message, title, buttonLabel) {
-	return PhoneGap.exec(successCallback, errorCallback, 'com.phonegap.Notification', alert, [message, title, buttonLabel]);
+	return PhoneGap.exec(successCallback, errorCallback, 'com.phonegap.Notification', 'alert', [message, title, buttonLabel]);
 };
 
 /**
