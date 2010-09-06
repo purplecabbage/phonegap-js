@@ -6,45 +6,69 @@
     <!-- You need the following two files in the same directory for QUnit to run. -->
     <link rel="stylesheet" type="text/css" href="qunit.css" />
 	<script type="text/javascript" src="qunit.js"></script>
-	<!-- Make sure you copy in phonegap.js from the PhoneGap repository (that's what you're testing, right?) -->
+	
     <script type="text/javascript" src="../src/desktop/phonegap.js"></script>
-    <script type="text/javascript" src="../src/eventtarget.js"></script>
+    
+    <script type="text/javascript" src="../src/eventtarget.js"></script>    
+    <script type="text/javascript" src="../src/common.js"></script>
+    <script type="text/javascript" src="../src/notification.js"></script>
+    
+    <script type="text/javascript">
+        function Tests() {
+            this.TEST_TIMEOUT = 15000;
+        };
+        
+        var tests = new Tests();
+
+        // Runs each function in Tests that contains 'Tests' in the name.
+        function run() {
+            for (var t in tests) {
+                if (t.indexOf('Tests') > -1) {
+                    tests[t]();
+                }
+            }
+        }
+
+        document.addEventListener('deviceready', run, false);
+    </script>
+    
+    <script type="text/javascript" src="tests/eventtarget.test.js"></script>
+    <script type="text/javascript" src="tests/notification.test.js"></script>
+    <!-- <script type="text/javascript" src="../src/eventtarget.js"></script>
     <script type="text/javascript" src="../src/common.js"></script>
     
-    <!-- <script type="text/javascript" src="../src/device.js"></script> -->
     <script type="text/javascript" src="../src/notification.js"></script>
     <script type="text/javascript" src="../src/network.js"></script>
     <script type="text/javascript" src="../src/camera.js"></script>
     <script type="text/javascript" src="../src/accelerometer.js"></script>
     <script type="text/javascript" src="../src/position.js"></script>
     <script type="text/javascript" src="../src/geolocation.js"></script>
-	<script type="text/javascript">
-		PhoneGap.desktop = true;
-		
-		function Tests() {
-			this.TEST_TIMEOUT = 15000;
-		};
-		var tests = new Tests();
+    <script type="text/javascript">
+        PhoneGap.desktop = true;
+        
+        function Tests() {
+            this.TEST_TIMEOUT = 15000;
+        };
+        var tests = new Tests();
 
-		// Runs each function in Tests that contains 'Tests' in the name.
-		function run() {
-			for (var t in tests) {
-				if (t.indexOf('Tests') > -1) {
-					tests[t]();
-				}
-			}
-		}
+        // Runs each function in Tests that contains 'Tests' in the name.
+        function run() {
+            for (var t in tests) {
+                if (t.indexOf('Tests') > -1) {
+                    tests[t]();
+                }
+            }
+        }
 
-		document.addEventListener('deviceready', run, false);
-	</script>
-    <!-- <script type="text/javascript" src="tests/device.test.js"></script> -->
-	<script type="text/javascript" src="tests/notification.test.js"></script>
-	<script type="text/javascript" src="tests/network.test.js"></script>
-	<script type="text/javascript" src="tests/camera.test.js"></script>
-	<script type="text/javascript" src="tests/accelerometer.test.js"></script>
-	<script type="text/javascript" src="tests/geolocation.test.js"></script>
-	<script type="text/javascript" src="tests/position.test.js"></script>
-	<script type="text/javascript" src="tests/phonegap.test.js"></script>
+        document.addEventListener('deviceready', run, false);
+    </script>
+    <script type="text/javascript" src="tests/notification.test.js"></script>
+    <script type="text/javascript" src="tests/network.test.js"></script>
+    <script type="text/javascript" src="tests/camera.test.js"></script>
+    <script type="text/javascript" src="tests/accelerometer.test.js"></script>
+    <script type="text/javascript" src="tests/geolocation.test.js"></script>
+    <script type="text/javascript" src="tests/position.test.js"></script>
+    <script type="text/javascript" src="tests/phonegap.test.js"></script> -->
   </head>
 	<body>
 		<h1 id="qunit-header">Mobile Spec (PhoneGap) Tests</h1>
