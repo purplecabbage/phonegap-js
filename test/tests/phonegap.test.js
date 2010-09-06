@@ -41,13 +41,13 @@ Tests.prototype.PhoneGapTests = function() {
 		expect(2);
 		equal(typeof PhoneGap.onNativeReady, 'object', 'PhoneGap.onNativeReady should be an object.');
 		// THIS SHOULD ONLY FIRE IF ON A DEVICE
-		ok(PhoneGap.onNativeReady.fired);
+		ok(PhoneGap.onNativeReady.fired, 'onNativeReady can only fire when on a device');
 	});
 	test('should contain an onDeviceReady object', function() {
 		expect(2);
 		equal(typeof PhoneGap.onDeviceReady, 'object', 'PhoneGap.onDeviceReady should be an object.');
 		// THIS SHOULD ONLY FIRE IF ON A DEVICE
-		ok(PhoneGap.onNativeReady.fired);
+		ok(PhoneGap.onNativeReady.fired, 'onNativeReady can only fire when on a device');
 	});
 	test('should contain an m_document_addEventListener function', function() {
 		expect(1);
