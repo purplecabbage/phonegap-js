@@ -131,5 +131,12 @@ PhoneGap.commandManager = {
 };
 
 document.addEventListener('DOMContentLoaded', function() {
+    Device.available = true;
+    Device.platform  = 'desktop';
+    Device.version   = '1.0';
+    Device.name      = navigator.userAgent;
+    Device.gap       = '0.9.1';
+    Device.uuid      = '01010101010101';
+    
     PhoneGap.onNativeReady.fire();
 }, false);
