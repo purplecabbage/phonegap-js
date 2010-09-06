@@ -1,3 +1,5 @@
+var phonegap = {};
+
 /**
  * Add an initialization function to a queue that ensures it will run and initialize
  * application constructors only once PhoneGap has been initialized.
