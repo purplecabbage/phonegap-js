@@ -28,7 +28,4 @@ Tests.prototype.DeviceTests = function() {
             ok(phonegap.device.uuid > 0, "phonegap.device.uuid, as a number, should be greater than 0. (should it, even?)");
         }
     });
-    test('should be tested', function() {
-       expect(1); 
-    });
 };
