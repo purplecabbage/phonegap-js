@@ -108,30 +108,31 @@ Tests.prototype.PhoneGapTests = function() {
 		expect(15);
 		equal(typeof PhoneGap.execWatch, 'function', 'PhoneGap.execWatch should be a function.');
 
-        // Android
-    	CommandManager.execWatch = function(clazz, action, watchId, jsonArgsString, async) {
-    	    if (async) {
-    	        PhoneGap.callbackWatchSuccess(clazz, 'callbackArgs');
-    	    }
-        };
+        //         // Android
+        // CommandManager.execWatch = function(clazz, action, watchId, jsonArgsString, async) {
+        //     if (async) {
+        //         PhoneGap.callbackWatchSuccess(clazz, 'callbackArgs');
+        //     }
+        //         };
+        // 
+        // // iPhone - this is how we can hook into the gap://foo/bar calls
+        //         document.__defineSetter__("location", function (val) {
+        //             this._location = val;
+        //         });
+        // 
+        //         // BlackBerry etc ...
+        // 
+        // var clazz = 'com.phonegap.foo';
+        // var watchId = PhoneGap.watchId;      
+        //         var watchResult = PhoneGap.execWatch(function success(args) {
+        //             equal(typeof args, 'string');
+        //             equal(args, 'callbackArgs', 'success callback should be passed some args from the CommandManager');
+        //             start();
+        //         }, function fail() {
+        //             start();
+        //         }, 'com.phonegap.foo', 'bar', ['baz'], true);
 
-    	// iPhone - this is how we can hook into the gap://foo/bar calls
-        document.__defineSetter__("location", function (val) {
-            this._location = val;
-        });
-
-        // BlackBerry etc ...
-
-    	var clazz = 'com.phonegap.foo';
-    	var watchId = PhoneGap.watchId;    	
-        var watchResult = PhoneGap.execWatch(function success(args) {
-            equal(typeof args, 'string');
-            equal(args, 'callbackArgs', 'success callback should be passed some args from the CommandManager');
-            start();
-        }, function fail() {
-            start();
-        }, 'com.phonegap.foo', 'bar', ['baz'], true);
-
+        var clazz = 'com.phonegap.geolocation';
         equal(typeof PhoneGap.callbacksWatch[clazz], 'object', 'PhoneGap.callbacksWatch[clazz] should be an object');
         equal(typeof PhoneGap.callbacksWatch[clazz][watchId], 'object', 'PhoneGap.callbacksWatch[clazz][watchId] should be an object');
         equal(typeof PhoneGap.callbacksWatch[clazz][watchId].success, 'function', 'PhoneGap.callbacksWatch[clazz][watchId] should have a success function');
