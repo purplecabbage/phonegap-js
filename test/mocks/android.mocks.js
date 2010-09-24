@@ -1,9 +1,3 @@
-// Fake the onNativeReady event by firing when the DOM content has loaded
-
-document.addEventListener('DOMContentLoaded', function() {
-    PhoneGap.onNativeReady.fire();
-}, false);
-
 // Mock the native CommandManger object
 
 CommandManager = {
@@ -66,3 +60,9 @@ CommandManager = {
         }
     }
 };
+
+// Fake the onNativeReady event by firing when the DOM content has loaded
+
+document.addEventListener('DOMContentLoaded', function() {
+    PhoneGap.onNativeReady.fire();
+}, false);
