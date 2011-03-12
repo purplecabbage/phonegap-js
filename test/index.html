@@ -1,26 +1,20 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<!DOCTYPE html>
+<html>
   <head>
-  	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
-  	<title>QUnit results for PhoneGap JS API</title>
-  	
-    <!-- You need the following two files in the same directory for QUnit to run. -->
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, height=device-height, user-scalable=yes, initial-scale=1.0;" />
+
+    <title>PhoneGap API Spec</title>
+
+    <!-- Load QUnit -->
     <link rel="stylesheet" type="text/css" href="qunit/qunit/qunit.css" />
     <script type="text/javascript" src="qunit/qunit/qunit.js"></script>
-	<script type="text/javascript" src="test_runner.js"></script>
-	
-	<!-- Choose Platform to Test -->
-	<!--
-	<script type="text/javascript" src="../src/desktop/phonegap.js"></script>
-    -->
-	<script type="text/javascript" src="../src/blackberry-widget/phonegap.js"></script>
-	<script type="text/javascript" src="mocks/blackberry-widget.mocks.js"></script>
-    <!--
-    <script type="text/javascript" src="../src/android/phonegap.js"></script>
-    <script type="text/javascript" src="mocks/android.mocks.js"></script
-    -->
+
+    <!-- Load Test Runner -->
+    <script type="text/javascript" src="test-runner.js"></script>
     
-    <!-- JavaScript to test -->
+    <!-- Source -->
+    <script type="text/javascript" src="../src/desktop/phonegap.js"></script>
     <script type="text/javascript" src="../src/eventtarget.js"></script>    
     <script type="text/javascript" src="../src/common.js"></script>
     <script type="text/javascript" src="../src/accelerometer.js"></script>
@@ -39,15 +33,15 @@
     <!-- <script type="text/javascript" src="../src/splashscreen.js"></script> -->
     <!-- <script type="text/javascript" src="../src/storage.js"></script> -->
     
-    <!-- Tests to use -->
+    <!-- Tests -->
     <script type="text/javascript" src="mobile-spec/tests/accelerometer.tests.js"></script>
     <script type="text/javascript" src="tests/blob.test.js"></script>
     <script type="text/javascript" src="mobile-spec/tests/camera.tests.js"></script>
     <script type="text/javascript" src="mobile-spec/tests/contacts.tests.js"></script>
     <script type="text/javascript" src="mobile-spec/tests/device.tests.js"></script>
     <script type="text/javascript" src="tests/eventtarget.test.js"></script>
-    <script type="text/javascript" src="mobile-spec/tests/file.tests.js"></script>
-    <script type="text/javascript" src="mobile-spec/tests/geolocation.tests.js"></script>
+    <!-- <script type="text/javascript" src="mobile-spec/tests/file.tests.js"></script>-->
+    <!-- <script type="text/javascript" src="mobile-spec/tests/geolocation.tests.js"></script>-->
     <script type="text/javascript" src="mobile-spec/tests/map.tests.js"></script>
     <script type="text/javascript" src="mobile-spec/tests/media.tests.js"></script>
     <script type="text/javascript" src="mobile-spec/tests/network.tests.js"></script>
@@ -58,10 +52,13 @@
     <script type="text/javascript" src="mobile-spec/tests/sms.tests.js"></script>
     <script type="text/javascript" src="mobile-spec/tests/telephony.tests.js"></script>
   </head>
-	<body>
-		<h1 id="qunit-header">Mobile Spec (PhoneGap) Tests</h1>
-		<h2 id="qunit-banner"></h2>
-		<h2 id="qunit-userAgent"></h2>
-		<ol id="qunit-tests"></ol>
-	</body>
+    <body>
+        <h1 id="qunit-header">PhoneGap API Spec</h1>
+        <h2 id="qunit-banner"></h2>
+        <h2 id="qunit-userAgent"></h2>
+        <ol id="qunit-tests"></ol>
+        <div id="qunit-fixture">
+            <!-- Populated by tests -->
+        </div>
+    </body>
 </html>
