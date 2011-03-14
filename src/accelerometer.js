@@ -52,7 +52,7 @@ Accelerometer.prototype.getCurrentAcceleration = function(successCallback, error
     }
 
     // Get acceleration
-    PhoneGap.exec(successCallback, errorCallback, "Accelerometer", "getAcceleration", []);
+    PhoneGap.exec(successCallback, errorCallback, "com.phonegap.Accelerometer", "getCurrentAcceleration", []);
 };
 
 /**
@@ -84,7 +84,7 @@ Accelerometer.prototype.watchAcceleration = function(successCallback, errorCallb
     PhoneGap.exec(
         function(timeout) {
             if (timeout < (frequency + 10000)) {
-                PhoneGap.exec(null, null, "Accelerometer", "setTimeout", [frequency + 10000]);
+                PhoneGap.exec(null, null, "com.phonegap.Accelerometer", "setTimeout", [frequency + 10000]);
             }
         },
         function(e) { }, "Accelerometer", "getTimeout", []);
@@ -92,7 +92,7 @@ Accelerometer.prototype.watchAcceleration = function(successCallback, errorCallb
     // Start watch timer
     var id = PhoneGap.createUUID();
     navigator.accelerometer.timers[id] = setInterval(function() {
-        PhoneGap.exec(successCallback, errorCallback, "Accelerometer", "getAcceleration", []);
+        PhoneGap.exec(successCallback, errorCallback, "com.phonegap.Accelerometer", "getCurrentAcceleration", []);
     }, (frequency ? frequency : 1));
 
     return id;

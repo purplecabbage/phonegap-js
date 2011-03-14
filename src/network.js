@@ -41,7 +41,7 @@ Network.prototype.isReachable = function(uri, callback, options) {
     if (options && options.isIpAddress) {
         isIpAddress = options.isIpAddress;
     }
-    PhoneGap.exec(callback, null, 'Network Status', 'isReachable', [uri, isIpAddress]);
+    PhoneGap.exec(callback, null, 'com.phonegap.Network', 'isReachable', [uri, isIpAddress]);
 };
 
 PhoneGap.addConstructor(function() {

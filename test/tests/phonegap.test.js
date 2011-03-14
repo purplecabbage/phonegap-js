@@ -96,83 +96,83 @@ Tests.prototype.PhoneGapTests = function() {
 
         //PhoneGap.exec(function() {}, function() {}, 'com.phonegap.foo', 'bar');
 	});
-	test('should contain a callbacksWatch object', function() {
-		expect(1);
-		equal(typeof PhoneGap.callbacksWatch, 'object', 'PhoneGap.callbacks should be an object.');
-	});
-	test('should contain a clearWatch function', function() {
-	    expect(1);
-	    equal(typeof PhoneGap.clearWatch, 'function', 'typeof PhoneGap.clearWatch should be a function');
-	});
-	test('should contain an execWatch function', function() {
-		expect(15);
-		equal(typeof PhoneGap.execWatch, 'function', 'PhoneGap.execWatch should be a function.');
-
-        //         // Android
-        // CommandManager.execWatch = function(clazz, action, watchId, jsonArgsString, async) {
-        //     if (async) {
-        //         PhoneGap.callbackWatchSuccess(clazz, 'callbackArgs');
-        //     }
-        //         };
-        // 
-        // // iPhone - this is how we can hook into the gap://foo/bar calls
-        //         document.__defineSetter__("location", function (val) {
-        //             this._location = val;
-        //         });
-        // 
-        //         // BlackBerry etc ...
-        // 
-        // var clazz = 'com.phonegap.foo';
-        // var watchId = PhoneGap.watchId;      
-        //         var watchResult = PhoneGap.execWatch(function success(args) {
-        //             equal(typeof args, 'string');
-        //             equal(args, 'callbackArgs', 'success callback should be passed some args from the CommandManager');
-        //             start();
-        //         }, function fail() {
-        //             start();
-        //         }, 'com.phonegap.foo', 'bar', ['baz'], true);
-
-        var clazz = 'com.phonegap.geolocation';
-        equal(typeof PhoneGap.callbacksWatch[clazz], 'object', 'PhoneGap.callbacksWatch[clazz] should be an object');
-        equal(typeof PhoneGap.callbacksWatch[clazz][watchId], 'object', 'PhoneGap.callbacksWatch[clazz][watchId] should be an object');
-        equal(typeof PhoneGap.callbacksWatch[clazz][watchId].success, 'function', 'PhoneGap.callbacksWatch[clazz][watchId] should have a success function');
-        equal(typeof PhoneGap.callbacksWatch[clazz][watchId].fail, 'function', 'PhoneGap.callbacksWatch[clazz][watchId] should have a fail function');
-
-        // watchResult should have a watchId property, a status, and a message or relevant return value
-
-
-        var watchId2 = PhoneGap.watchId;
-	    // Add a second watch to the same class (this could be accelerometer for example ...)
-        PhoneGap.execWatch(function success(args) { }, function fail() { }, 'com.phonegap.foo', 'bar', ['baz'], true);
-
-
-        ok(checkCallbacks(clazz, 1), 'there should be one class in the callbacksWatch collection and it should be the one we registered');
-        ok(checkWatches(clazz, 2), 'there should be 2 watchIds for this class');
-
-
-        // Clear one of the watches
-        PhoneGap.clearWatch(clazz, watchId);
-
-
-        ok(checkCallbacks(clazz, 1), 'there should still be one class in the callbacksWatch collection and it should be the one we registered');
-        ok(checkWatches(clazz, 1), 'there should be 1 watchIds for this class');
-
-
-        CommandManager.execStopWatch = function(c) {
-            equal(c, clazz, 'the CommandManager.execStopWatch method should be called since there are no more watches for this class');
-            start();
-        }
-
-        stop();
-        // Clear the second watch
-        PhoneGap.clearWatch(clazz, watchId2);
-
-        ok(checkCallbacks(clazz, 0), 'after clearing the second watch there should be no watch callbacks for this class');
-	});	
-	test('should contain a callbackWatchSuccess function', function() {
-	    expect(1);
-	    equal(typeof PhoneGap.callbackWatchSuccess, 'function', 'typeof PhoneGap.callbackWatchSuccess should be a function');
-	});
+    // test('should contain a callbacksWatch object', function() {
+    //  expect(1);
+    //  equal(typeof PhoneGap.callbacksWatch, 'object', 'PhoneGap.callbacks should be an object.');
+    // });
+    // test('should contain a clearWatch function', function() {
+    //     expect(1);
+    //     equal(typeof PhoneGap.clearWatch, 'function', 'typeof PhoneGap.clearWatch should be a function');
+    // });
+    // test('should contain an execWatch function', function() {
+    //  expect(15);
+    //  equal(typeof PhoneGap.execWatch, 'function', 'PhoneGap.execWatch should be a function.');
+    // 
+    //         //         // Android
+    //         // CommandManager.execWatch = function(clazz, action, watchId, jsonArgsString, async) {
+    //         //     if (async) {
+    //         //         PhoneGap.callbackWatchSuccess(clazz, 'callbackArgs');
+    //         //     }
+    //         //         };
+    //         // 
+    //         // // iPhone - this is how we can hook into the gap://foo/bar calls
+    //         //         document.__defineSetter__("location", function (val) {
+    //         //             this._location = val;
+    //         //         });
+    //         // 
+    //         //         // BlackBerry etc ...
+    //         // 
+    //         // var clazz = 'com.phonegap.foo';
+    //         // var watchId = PhoneGap.watchId;      
+    //         //         var watchResult = PhoneGap.execWatch(function success(args) {
+    //         //             equal(typeof args, 'string');
+    //         //             equal(args, 'callbackArgs', 'success callback should be passed some args from the CommandManager');
+    //         //             start();
+    //         //         }, function fail() {
+    //         //             start();
+    //         //         }, 'com.phonegap.foo', 'bar', ['baz'], true);
+    // 
+    //         var clazz = 'com.phonegap.geolocation';
+    //         equal(typeof PhoneGap.callbacksWatch[clazz], 'object', 'PhoneGap.callbacksWatch[clazz] should be an object');
+    //         equal(typeof PhoneGap.callbacksWatch[clazz][watchId], 'object', 'PhoneGap.callbacksWatch[clazz][watchId] should be an object');
+    //         equal(typeof PhoneGap.callbacksWatch[clazz][watchId].success, 'function', 'PhoneGap.callbacksWatch[clazz][watchId] should have a success function');
+    //         equal(typeof PhoneGap.callbacksWatch[clazz][watchId].fail, 'function', 'PhoneGap.callbacksWatch[clazz][watchId] should have a fail function');
+    // 
+    //         // watchResult should have a watchId property, a status, and a message or relevant return value
+    // 
+    // 
+    //         var watchId2 = PhoneGap.watchId;
+    //     // Add a second watch to the same class (this could be accelerometer for example ...)
+    //         PhoneGap.execWatch(function success(args) { }, function fail() { }, 'com.phonegap.foo', 'bar', ['baz'], true);
+    // 
+    // 
+    //         ok(checkCallbacks(clazz, 1), 'there should be one class in the callbacksWatch collection and it should be the one we registered');
+    //         ok(checkWatches(clazz, 2), 'there should be 2 watchIds for this class');
+    // 
+    // 
+    //         // Clear one of the watches
+    //         PhoneGap.clearWatch(clazz, watchId);
+    // 
+    // 
+    //         ok(checkCallbacks(clazz, 1), 'there should still be one class in the callbacksWatch collection and it should be the one we registered');
+    //         ok(checkWatches(clazz, 1), 'there should be 1 watchIds for this class');
+    // 
+    // 
+    //         CommandManager.execStopWatch = function(c) {
+    //             equal(c, clazz, 'the CommandManager.execStopWatch method should be called since there are no more watches for this class');
+    //             start();
+    //         }
+    // 
+    //         stop();
+    //         // Clear the second watch
+    //         PhoneGap.clearWatch(clazz, watchId2);
+    // 
+    //         ok(checkCallbacks(clazz, 0), 'after clearing the second watch there should be no watch callbacks for this class');
+    // });  
+    // test('should contain a callbackWatchSuccess function', function() {
+    //     expect(1);
+    //     equal(typeof PhoneGap.callbackWatchSuccess, 'function', 'typeof PhoneGap.callbackWatchSuccess should be a function');
+    // });
     test('deviceready', function() {
         expect(2);
         var hasHandler = false;
