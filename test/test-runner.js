@@ -1,5 +1,5 @@
 var Tests = function() {
-    this.TEST_TIMEOUT = 15000;
+    this.TEST_TIMEOUT = 500;
 };
 
 var tests = new Tests();
