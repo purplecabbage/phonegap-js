@@ -1,3 +1,6 @@
+QUnit.config.autostart = false;
+sessionStorage.clear();
+
 var Tests = function() {
     this.TEST_TIMEOUT = 500;
 };
@@ -11,6 +14,7 @@ function run() {
             tests[t]();
         }
     }
+    QUnit.start();
 }
 
 document.addEventListener('DOMContentLoaded', function() {
