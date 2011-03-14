@@ -20,9 +20,11 @@ FILES = src/phonegap.base.js \
         src/notification.js \
         src/position.js
 
-VERSION    = $(strip $(shell cat VERSION))
-BUILD_DIR  = build
-BUILD_FILE = phonegap.${VERSION}.js
+VERSION = $(strip $(shell cat VERSION))
+
+BUILD_DIR      = build
+BUILD_FILE     = phonegap.${VERSION}.js
+BUILD_MIN_FILE = phonegap.${VERSION}.min.js
 
 define clone_or_pull
 	if test -d $(strip ${1})/.git; then \
@@ -41,9 +43,10 @@ init:
 build: clean init
 	echo "Building..."
 	mkdir -p ${BUILD_DIR}
-
 	echo " => ${BUILD_DIR}/${BUILD_FILE}"
 	cat ${FILES} > ${BUILD_DIR}/${BUILD_FILE}
+	echo " => ${BUILD_DIR}/${BUILD_MIN_FILE}"
+	java -jar ./vendor/yuicompressor-2.4.2/build/yuicompressor-2.4.2.jar ${BUILD_DIR}/${BUILD_FILE} -o ${BUILD_DIR}/${BUILD_MIN_FILE}
 
 clean:
 	if test -d ${BUILD_DIR}; then \

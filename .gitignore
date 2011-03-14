@@ -9,4 +9,4 @@ test/mobile-spec
 src/phonegap.js
 
 # Build files
-build
+/build
