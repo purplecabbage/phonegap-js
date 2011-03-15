@@ -80,13 +80,14 @@ Accelerometer.prototype.watchAcceleration = function(successCallback, errorCallb
     }
 
     // Make sure accelerometer timeout > frequency + 10 sec
+    // @TODO Write a test for `setTimeout` and `getTimeout`
     PhoneGap.exec(
         function(timeout) {
             if (timeout < (frequency + 10000)) {
                 PhoneGap.exec(null, null, "com.phonegap.Accelerometer", "setTimeout", [frequency + 10000]);
             }
         },
-        function(e) { }, "Accelerometer", "getTimeout", []);
+        function(e) { }, "com.phonegap.Accelerometer", "getTimeout", []);
 
     // Start watch timer
     var id = PhoneGap.createUUID();
