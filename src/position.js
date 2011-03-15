@@ -23,6 +23,13 @@ function Position(coords, timestamp) {
     this.timestamp = timestamp;
 }
 
+function PositionOptions(enableHighAccuracy, timeout, maximumAge, minimumAccuracy) {
+    this.enableHighAccuracy = enableHighAccuracy || false;
+    this.timeout = timeout || 10000000;
+    this.maximumAge = maximumAge || 0;
+    this.minimumAccuracy = minimumAccuracy || 10000000;
+}
+
 function Coordinates(lat, lng, alt, acc, head, vel, altacc) {
 	/**
 	 * The latitude of the position.
