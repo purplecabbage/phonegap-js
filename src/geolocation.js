@@ -27,8 +27,8 @@ function Geolocation() {
  * @param message
  */
 function PositionError(code, message) {
-    this.code = code;
-    this.message = message;
+    this.code = code || 0;
+    this.message = message || '';
 };
 
 PositionError.UNKNOWN_ERROR = 0;
