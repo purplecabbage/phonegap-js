@@ -1,4 +1,3 @@
-
 /*
  * PhoneGap is available under *either* the terms of the modified BSD license *or* the
  * MIT License (2008). See http://opensource.org/licenses/alphabetical for full text.
@@ -14,7 +13,7 @@ function Acceleration(x, y, z) {
 };
 
 /**
- * This class provides access to device accelerometer data.
+ * Class provides access to device accelerometer data.
  * @constructor
  */
 function Accelerometer() {
@@ -66,7 +65,7 @@ Accelerometer.prototype.getCurrentAcceleration = function(successCallback, error
 Accelerometer.prototype.watchAcceleration = function(successCallback, errorCallback, options) {
 
     // Default interval (10 sec)
-    var frequency = (options != undefined)? options.frequency : 10000;
+    var frequency = (options != undefined) ? options.frequency : 10000;
 
     // successCallback required
     if (typeof successCallback != "function") {
