@@ -31,6 +31,7 @@ function PositionError(code, message) {
     this.message = message;
 };
 
+PositionError.UNKNOWN_ERROR = 0;
 PositionError.PERMISSION_DENIED = 1;
 PositionError.POSITION_UNAVAILABLE = 2;
 PositionError.TIMEOUT = 3;
