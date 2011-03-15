@@ -27,27 +27,27 @@ function Coordinates(lat, lng, alt, acc, head, vel, altacc) {
 	/**
 	 * The latitude of the position.
 	 */
-	this.latitude = lat;
+	this.latitude = lat || 0;
 	/**
 	 * The longitude of the position,
 	 */
-	this.longitude = lng;
+	this.longitude = lng || 0;
 	/**
 	 * The accuracy of the position.
 	 */
-	this.accuracy = acc;
+	this.accuracy = acc || 0;
 	/**
 	 * The altitude of the position.
 	 */
-	this.altitude = alt;
+	this.altitude = alt || 0;
 	/**
 	 * The direction the device is moving at the position.
 	 */
-	this.heading = head;
+	this.heading = head || 0;
 	/**
 	 * The velocity with which the device is moving at the position.
 	 */
-	this.speed = vel;
+	this.speed = vel || 0;
 	/**
 	 * The altitude accuracy of the position.
 	 */
