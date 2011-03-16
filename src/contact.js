@@ -80,7 +80,7 @@ Contact.prototype.remove = function(successCB, errorCB) {
         errorCB(errorObj);
     }
     else {
-        PhoneGap.exec(successCB, errorCB, "Contacts", "remove", [this.id]);
+        PhoneGap.exec(successCB, errorCB, "com.phonegap.Contacts", "remove", [this.id]);
     }
 };
 
@@ -144,7 +144,7 @@ Contact.prototype.clone = function() {
 * @param errorCB error callback
 */
 Contact.prototype.save = function(successCB, errorCB) {
-    PhoneGap.exec(successCB, errorCB, "Contacts", "save", [this]);
+    PhoneGap.exec(successCB, errorCB, "com.phonegap.Contacts", "save", [this]);
 };
 
 /**
@@ -233,7 +233,7 @@ var Contacts = function() {
 * @return array of Contacts matching search criteria
 */
 Contacts.prototype.find = function(fields, successCB, errorCB, options) {
-    PhoneGap.exec(successCB, errorCB, "Contacts", "search", [fields, options]);
+    PhoneGap.exec(successCB, errorCB, "com.phonegap.Contacts", "search", [fields, options]);
 };
 
 /**
