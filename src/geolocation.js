@@ -44,7 +44,7 @@ PositionError.TIMEOUT = 3;
  * @param {PositionOptions} options     The options for getting the position data. (OPTIONAL)
  */
 Geolocation.prototype.getCurrentPosition = function(successCallback, errorCallback, options) {
-
+    console.log('enter');
     var id = "global";
     if (navigator._geo.listeners[id]) {
         console.log("Geolocation Error: Still waiting for previous getCurrentPosition() request.");
@@ -74,7 +74,7 @@ Geolocation.prototype.getCurrentPosition = function(successCallback, errorCallba
         }
     }
     navigator._geo.listeners[id] = {"success" : successCallback, "fail" : errorCallback };
-    PhoneGap.exec(null, errorCallback, "Geolocation", "getCurrentPosition", [id, maximumAge, timeout, enableHighAccuracy]);
+    PhoneGap.exec(null, errorCallback, "com.phonegap.Geolocation", "getCurrentPosition", [id, maximumAge, timeout, enableHighAccuracy]);
 }
 
 /**
@@ -110,7 +110,7 @@ Geolocation.prototype.watchPosition = function(successCallback, errorCallback, o
     }
     var id = PhoneGap.createUUID();
     navigator._geo.listeners[id] = {"success" : successCallback, "fail" : errorCallback };
-    PhoneGap.exec(null, errorCallback, "Geolocation", "watchPosition", [id, maximumAge, timeout, enableHighAccuracy]);
+    PhoneGap.exec(null, errorCallback, "com.phonegap.Geolocation", "watchPosition", [id, maximumAge, timeout, enableHighAccuracy]);
     return id;
 };
 
@@ -162,7 +162,7 @@ Geolocation.prototype.fail = function(id, result) {
  * @param {String} id       The ID of the watch returned from #watchPosition
  */
 Geolocation.prototype.clearWatch = function(id) {
-    PhoneGap.exec(null, null, "Geolocation", "stop", [id]);
+    PhoneGap.exec(null, null, "com.phonegap.Geolocation", "stop", [id]);
     delete navigator._geo.listeners[id];
 };
 
