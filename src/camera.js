@@ -1,8 +1,7 @@
-
 /*
  * PhoneGap is available under *either* the terms of the modified BSD license *or* the
  * MIT License (2008). See http://opensource.org/licenses/alphabetical for full text.
- * 
+ *
  * Copyright (c) 2005-2010, Nitobi Software Inc.
  * Copyright (c) 2010, IBM Corporation
  */
@@ -40,10 +39,10 @@ Camera.prototype.DestinationType = Camera.DestinationType;
  *                destinationType: Camera.DestinationType.DATA_URL,
  *                sourceType: Camera.PictureSourceType.PHOTOLIBRARY})
  */
-Camera.PictureSourceType = {    // Ignored on Blackberry
-    PHOTOLIBRARY : 0,           // Choose image from picture library 
+Camera.PictureSourceType = {
+    PHOTOLIBRARY : 0,           // Choose image from picture library
     CAMERA : 1,                 // Take picture from camera
-    SAVEDPHOTOALBUM : 2         // Choose image from picture library 
+    SAVEDPHOTOALBUM : 2         // Choose image from picture library
 };
 Camera.prototype.PictureSourceType = Camera.PictureSourceType;
 
@@ -60,19 +59,17 @@ Camera.prototype.PictureSourceType = Camera.PictureSourceType;
 Camera.prototype.getPicture = function(successCallback, errorCallback, options) {
 
     // successCallback required
-    if (typeof successCallback != "function") {
+    if (typeof successCallback !== "function") {
         console.log("Camera Error: successCallback is not a function");
         return;
     }
 
     // errorCallback optional
-    if (errorCallback && (typeof errorCallback != "function")) {
+    if (errorCallback && (typeof errorCallback !== "function")) {
         console.log("Camera Error: errorCallback is not a function");
         return;
     }
 
-    this.successCallback = successCallback;
-    this.errorCallback = errorCallback;
     this.options = options;
     var quality = 80;
     if (options.quality) {
@@ -83,12 +80,14 @@ Camera.prototype.getPicture = function(successCallback, errorCallback, options) 
         destinationType = this.options.destinationType;
     }
     var sourceType = Camera.PictureSourceType.CAMERA;
-    if (typeof this.options.sourceType == "number") {
+    if (typeof this.options.sourceType === "number") {
         sourceType = this.options.sourceType;
     }
-    PhoneGap.exec(successCallback, errorCallback, "Camera", "takePicture", [quality, destinationType, sourceType]);
+    PhoneGap.exec(successCallback, errorCallback, "com.phonegap.Camera", "takePicture", [quality, destinationType, sourceType]);
 };
 
 PhoneGap.addConstructor(function() {
-	if (typeof navigator.camera == "undefined") navigator.camera = new Camera();
+    if (typeof navigator.camera === "undefined") {
+        navigator.camera = new Camera();
+    }
 });
