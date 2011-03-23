@@ -13,14 +13,48 @@
  * @constructor
  */
 function Device() {
-  // this.platform = phonegap.device.platform;
-  // this.version  = blackberry.system.softwareVersion;
-  // this.name     = blackberry.system.model;
-  // this.uuid     = phonegap.device.uuid;
-  // this.phonegap = phonegap.device.phonegap;
+  this.platform = null;
+  this.version  = null;
+  this.name     = null;
+  this.uuid     = null;
+  this.phonegap = null;
+};
+
+/**
+ * Get device info
+ *
+ * @param {Function} successCallback The function to call when the heading data is available
+ * @param {Function} errorCallback The function to call when there is an error getting the heading data. (OPTIONAL)
+ */
+Device.prototype.getInfo = function(successCallback, errorCallback) {
+
+    // successCallback required
+    if (typeof successCallback !== "function") {
+        console.log("Device Error: successCallback is not a function");
+        return;
+    }
+
+    // errorCallback optional
+    if (errorCallback && (typeof errorCallback !== "function")) {
+        console.log("Device Error: errorCallback is not a function");
+        return;
+    }
+
+    // Get info
+    PhoneGap.exec(successCallback, errorCallback, "com.phonegap.Device", "getInfo", []);
 };
 
 PhoneGap.addConstructor(function() {
   navigator.device = window.device = new Device();
-  PhoneGap.onPhoneGapInfoReady.fire();
+
+  // Immediately populate the device information
+  navigator.device.getInfo(function(info) {
+      navigator.device.platform = info.platform;
+      navigator.device.version  = info.version;
+      navigator.device.name     = info.name;
+      navigator.device.uuid     = info.uuid;
+      navigator.device.phonegap = info.phonegap;
+
+      PhoneGap.onPhoneGapInfoReady.fire();
+  });
 });
