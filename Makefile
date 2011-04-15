@@ -8,7 +8,7 @@ QUNIT_GIT = git://github.com/jquery/qunit.git
 MOBILE_SPEC_DIR = test/mobile-spec
 MOBILE_SPEC_GIT = git://github.com/phonegap/mobile-spec.git
 
-FILES = src/phonegap.base.js \
+FILES = src/phonegap.core.js \
         src/phonegap.js \
         src/accelerometer.js \
         src/camera.js \
