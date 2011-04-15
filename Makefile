@@ -46,7 +46,7 @@ build: clean init
 	echo " => ${BUILD_DIR}/${BUILD_FILE}"
 	cat ${FILES} > ${BUILD_DIR}/${BUILD_FILE}
 	echo " => ${BUILD_DIR}/${BUILD_MIN_FILE}"
-	java -jar ./vendor/yuicompressor-2.4.2/build/yuicompressor-2.4.2.jar ${BUILD_DIR}/${BUILD_FILE} -o ${BUILD_DIR}/${BUILD_MIN_FILE}
+	java -jar ./lib/yuicompressor-2.4.2/build/yuicompressor-2.4.2.jar ${BUILD_DIR}/${BUILD_FILE} -o ${BUILD_DIR}/${BUILD_MIN_FILE}
 
 clean:
 	if test -d ${BUILD_DIR}; then \
