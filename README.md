@@ -1,9 +1,9 @@
 PhoneGap JavaScript API
 =======================
 
-A single JavaScript implementation for all PhoneGap platforms and a test suite that utilizes [mobile-spec](http://github.com/phonegap/mobile-spec/).
+A single JavaScript implementation that is used by all PhoneGap platforms and a test suite that utilizes [mobile-spec](http://github.com/phonegap/mobile-spec/).
 
-Each PhoneGap platforms implements a mediator that bridges the communication between the JavaScript API and the native architecture.
+Each PhoneGap platform implements `PhoneGap.exec`, which bridges the communication between the JavaScript API and the native architecture.
 
 Layout
 ------
@@ -15,11 +15,9 @@ Layout
 Usage
 -----
 
-### Implement the mediator
+### 1. Implement PhoneGap.exec
 
-Create `phonegap.js` wherever it makes sense.
-
-Instructions assume the path `src/javascript/phonegap.js`
+Create `phonegap.js` in your platform's project.
 
 Implement `PhoneGap.exec`:
 
@@ -38,25 +36,18 @@ Implement `PhoneGap.exec`:
         // do you magic
     };
 
-### Include this repository
+### 2. Submodule phonegap-js
 
 Include [phonegap-js](http://github.com/davejohnson/phonegap-js) into your project.
 
-Instructions assume the path `vendor/phonegap-js`.
+    $ cd phonegap-android
+    $ mkdir vendor
+    $ git submodule add git://github.com/davejohnson/phonegap-js.git vendor/phonegap-js
 
-There are many ways to include this repository:
-
-- use a submodule
-- use a build script + .gitignore
-    - see phonegap-js/makefile for an example
-- committing the source to your repository _(not recommended)_
-
-### Build and test
-
-Build:
+### 3. Build phonegap.js
 
     # Add PhoneGap.exec
-    cp src/javascript/phonegap.js vendor/phonegap-js/src/phonegap.js
+    cp phonegap.js vendor/phonegap-js/lib/phonegap.js
 
     # Build
     cd vendor/phonegap-js

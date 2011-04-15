@@ -6,7 +6,7 @@ test/qunit
 test/mobile-spec
 
 # phonegap.js is provided by each platform
-src/phonegap.js
+phonegap.js
 
 # Build files
 /build
