@@ -21,7 +21,7 @@ The recommended approach is to use a [Git Submodule](http://progit.org/book/ch6-
 
 All PhoneGap platforms use the same JavaScript source, but each platform must define how to communicate with the native architecture. This is where `PhoneGap.exec` steps in. Each PhoneGap platform must define its own `PhoneGap.exec` in order to generate `phonegap.js`.
 
-The article [lib/phonegap/README.md](lib/phonegap/README.md) explains how to implement `PhoneGap.exec`.
+The article [lib/phonegap/README.md](phonegap-js/blob/master/lib/phonegap/README.md) explains how to implement `PhoneGap.exec`.
 
 3) Building phonegap.js for a PhoneGap Platform
 -----------------------------------------------
