@@ -2,12 +2,6 @@
 
 VERBOSE = --quiet
 
-QUNIT_DIR = test/qunit
-QUNIT_GIT = git://github.com/jquery/qunit.git
-
-MOBILE_SPEC_DIR = test/mobile-spec
-MOBILE_SPEC_GIT = git://github.com/phonegap/mobile-spec.git
-
 PHONEGAP_JS_FILE = lib/phonegap/phonegap.js
 
 FILES = src/phonegap.core.js \
@@ -51,8 +45,8 @@ check:
 	if [ ! -e ${PHONEGAP_JS_FILE} ]; then echo " => Error: Cannot find ${PHONEGAP_JS_FILE}"; exit 1; fi
 
 update:
-	$(call clone_or_pull, ${QUNIT_DIR}, ${QUNIT_GIT})
-	$(call clone_or_pull, ${MOBILE_SPEC_DIR}, ${MOBILE_SPEC_GIT})
+	echo "Updating submodules..."
+	git submodule update --init
 
 clean:
 	if test -d ${BUILD_DIR}; then \

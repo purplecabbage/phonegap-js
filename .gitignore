@@ -1,10 +1,6 @@
 # OS X
 .DS_Store
 
-# Vendor
-test/qunit
-test/mobile-spec
-
 # phonegap.js is provided by each platform
 phonegap.js
 
