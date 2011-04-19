@@ -1,61 +1,41 @@
 PhoneGap JavaScript API
 =======================
 
-A single JavaScript implementation that is used by all PhoneGap platforms and a test suite that utilizes [mobile-spec](http://github.com/phonegap/mobile-spec/).
+> One JavaScript to rule them all.
 
-Each PhoneGap platform implements `PhoneGap.exec`, which bridges the communication between the JavaScript API and the native architecture.
+This is the JavaScript implementation that is used by all PhoneGap platforms.
 
-Layout
-------
+Each platform implements `PhoneGap.exec` in `lib/phonegap/phonegap.js`. This is the magical, platform-specific JavaScript that bridges the messages between the browser and the native architecture.
 
-    src/ ..................... PhoneGap JavaScript API
-    test/ .................... PhoneGap JavaScript API tests
-    test/mocks/ .............. Platform native mock objects (for desktop testing)
-                               (mocks will be moved soon)
-Usage
------
+1. Installing phonegap-js to a PhoneGap Platform
+------------------------------------------------
 
-### 1. Implement PhoneGap.exec
+The recommended approach is to use a [Git Submodule](http://progit.org/book/ch6-6.html).
 
-Create `phonegap.js` in your platform's project.
+    $ cd phonegap-newplatform
+    $ mkdir lib
+    $ git submodule add git://github.com/davejohnson/phonegap-js.git lib/phonegap-js
 
-Implement `PhoneGap.exec`:
+2. Implementing PhoneGap.exec for a PhoneGap Platform
+-----------------------------------------------------
 
-    /**
-     * Execute a PhoneGap command.
-     *
-     * It is up to the native side whether this action is sync or async.  
-     *
-     * @param {Function} success    The success callback
-     * @param {Function} error      The fail callback
-     * @param {String}   service    The name of the service to use (com.phonegap.Geolocation)
-     * @param {String}   action     Action to be run in PhoneGap (getCurrentPosition)
-     * @param {String[]} [args]     Zero or more arguments to pass to the method
-     */
-    PhoneGap.exec = function(success, error, server, action, args) {
-        // do you magic
-    };
+All PhoneGap platforms use the same JavaScript source, but each platform must define how to communicate with the native architecture. This is where `PhoneGap.exec` steps in. Each PhoneGap platform must define its own `PhoneGap.exec` in order to generate `phonegap.js`.
 
-### 2. Submodule phonegap-js
+The article [lib/phonegap/README.md](lib/phonegap/README.md) explains how to implement `PhoneGap.exec`.
 
-Include [phonegap-js](http://github.com/davejohnson/phonegap-js) into your project.
+3. Building phonegap.js for a PhoneGap Platform
+-----------------------------------------------
 
-    $ cd phonegap-android
-    $ mkdir vendor
-    $ git submodule add git://github.com/davejohnson/phonegap-js.git vendor/phonegap-js
+Once you have implemented `PhoneGap.exec`, you can generate `build/phonegap.js` and its minified counterpart.
 
-### 3. Build phonegap.js
+    $ make build
 
-    # Add PhoneGap.exec
-    cp phonegap.js vendor/phonegap-js/lib/phonegap.js
+4. Testing phonegap.js for a PhoneGap Platform
+----------------------------------------------
 
-    # Build
-    cd vendor/phonegap-js
-    make build
+Point your PhoneGap application to `test/index.html`
 
-Test in a browser or PhoneGap app:
-
-    vendor/phonegap-js/test/index.html
+@TODO This needs to be streamlined better. Perhaps `make` can copy the generated `phonegap.js` to the tests directory.
 
 FAQ
 ===
@@ -63,7 +43,3 @@ FAQ
 __Q: Why are a bunch of tests commented out in `test/index.html`?__
 
 A: In short, no one has got it working yet. Maybe the the tests are not fully implemented. Maybe the API is still not considered common to all platforms. Maybe no one has got around to implementing it. Contributions are welcome!
-
-__Q: What is the point of the mock object? It's all lies.__
-
-A: Mock objects allow us to test the JavaScript implementation without worrying about the native implementation. It also allows us to specify expected return values for the tests. It would be nice to have __true__ mock objects, where the test case could mock an expected response, but the current approach is a good start. A separate set of tests need to exist on the native side to verify the native responses. If you have an idea on how to unify the two (e.g. a mocking library that can tell the native-side to return a particular mocked value), then we'd love to hear it!
