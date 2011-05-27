@@ -1,8 +1,9 @@
 # OS X
 .DS_Store
 
-# phonegap.js is provided by each platform
-phonegap.js
+# Platform-specific PhoneGap JavaScript implementations
+phonegap.exec.js
+phonegap.override.js
 
 # Build files
 /build
