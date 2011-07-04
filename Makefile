@@ -1,4 +1,4 @@
-.SILENT: help blackberry build check update clean
+.SILENT: help blackberry-webworks build check update clean
 
 VERSION = $(strip $(shell cat VERSION))
 
