@@ -3,30 +3,47 @@ PhoneGap JavaScript API
 
 > One JavaScript to rule them all.
 
-This is the JavaScript implementation that is used by all PhoneGap platforms.
+This JavaScript implementation is intended to be used by all PhoneGap platforms.
 
-Each platform implements `PhoneGap.exec` in `lib/phonegap/phonegap.js`. This is the magical, platform-specific JavaScript that bridges the messages between the browser and the native architecture.
+A platform implements `PhoneGap.exec` in `lib/phonegap/phonegap.exec.js`.
+This is the magical, platform-specific JavaScript function that bridges
+the messages between the browser and native architecture.
 
 1) Installing phonegap-js to a PhoneGap Platform
 ------------------------------------------------
 
-The recommended approach is to use a [Git Submodule](http://progit.org/book/ch6-6.html).
+The recommended approach is to use a [Git Submodule](http://progit.org/book/ch6-6.html)
+called `lib/phonegap-js`.
 
-    $ cd phonegap-newplatform
+    $ cd phonegap-platform
     $ mkdir lib
     $ git submodule add git://github.com/davejohnson/phonegap-js.git lib/phonegap-js
 
-2) Implementing PhoneGap.exec for a PhoneGap Platform
------------------------------------------------------
+2) Implementing PhoneGap.exec
+-----------------------------
 
-All PhoneGap platforms use the same JavaScript source, but each platform must define how to communicate with the native architecture. This is where `PhoneGap.exec` steps in. Each PhoneGap platform must define its own `PhoneGap.exec` in order to generate `phonegap.js`.
+Although all PhoneGap platforms use the same JavaScript source, each platform must
+define how to communicate with the native architecture.
 
-The article [lib/phonegap/README.md](phonegap-js/blob/master/lib/phonegap/README.md) explains how to implement `PhoneGap.exec`.
+This is where `PhoneGap.exec` steps in.
 
-3) Building phonegap.js for a PhoneGap Platform
------------------------------------------------
+To learn how to implement `PhoneGap.exec`, please read [lib/phonegap/README.md](phonegap-js/blob/master/lib/phonegap/README.md).
 
-Once you have implemented `PhoneGap.exec`, you can generate `build/phonegap.js` and its minified counterpart.
+3) Defining Extra JavaScript Functionality
+------------------------------------------
+
+Ideally, a platform should not need to define extra functionality.
+
+However, until phonegap-js is battle tested, this is where can declare
+all of your nasty, proprietary JavaScript.
+
+To learn how to implement extra functionality, please read [lib/phonegap/phonegap.extras.md](phonegap-js/blob/master/lib/phonegap/phonegap.extras.md).
+
+4) Building phonegap.x.x.x.js for your PhoneGap Platform
+--------------------------------------------------------
+
+Once you have implemented `PhoneGap.exec`, you can generate `build/phonegap.x.x.x.js`
+and `build/phonegap.x.x.x.min.js`.
 
     $ make build
 

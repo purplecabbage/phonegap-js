@@ -1,7 +1,12 @@
-Put phonegap.js Here
-=====================
+PhoneGap.exec
+=============
 
-`phonegap.js` implements the JavaScript-to-Native bridge `PhoneGap.exec`. This bridge is different for each PhoneGap platform.
+`phonegap.exec.js` implements the JavaScript-to-Native bridge `PhoneGap.exec`. This bridge is different for each PhoneGap platform.
+
+File
+----
+
+    $ touch lib/phonegap/phonegap.exec.js
 
 Interface
 ---------
@@ -27,4 +32,3 @@ Notes
 - Combine service and action
     - rename to uri?
     - com.phonegap.geolocation.getCurrentPosition
-
