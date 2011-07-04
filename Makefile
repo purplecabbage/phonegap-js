@@ -1,4 +1,4 @@
-.SILENT: help build check update clean
+.SILENT: help blackberry build check update clean
 
 VERSION = $(strip $(shell cat VERSION))
 
@@ -22,6 +22,8 @@ FILES = src/phonegap.core.js \
         src/position.js \
         ${PHONEGAP_OVERRIDE_JS}
 
+BLACKBERRY_WEBWORKS_FILES = src/blackberry-webworks/*.js
+
 help:
 	echo
 	echo "NAME"
@@ -34,11 +36,20 @@ help:
 	echo "  make COMMAND"
 	echo
 	echo "COMMANDS"
-	echo "  help ......... This help menu."
-	echo "  build ........ Generate build/phonegap.x.x.x.js."
-	echo "  check ........ Dependency check."
-	echo "  update ....... Update submodules."
+	echo "  help .................. This help menu."
+	echo "  blackberry-webworks ... Generate phonegap.js for BlackBerry WebWorks."
+	echo "  build ................. Generate phonegap.js (Incomplete)."
+	echo "  check ................. Dependency check."
+	echo "  update ................ Update submodules."
 	echo
+
+blackberry-webworks: clean update
+	echo "Build phonegap.${VERSION}.js for BlackBerry WebWorks..."
+	mkdir -p ${BUILD_DIR}
+	echo "  => ${PHONEGAP_JS}"
+	cat ${BLACKBERRY_WEBWORKS_FILES} > ${PHONEGAP_JS}
+	echo "  => ${PHONEGAP_JS_MIN}"
+	java -jar ./lib/yuicompressor-2.4.2/build/yuicompressor-2.4.2.jar ${PHONEGAP_JS} -o ${PHONEGAP_JS_MIN}
 
 build: clean check update
 	echo "Building..."
