@@ -1,22 +1,26 @@
+// Prevent QUnit from running when the DOM load event fires
 QUnit.config.autostart = false;
 sessionStorage.clear();
 
-var Tests = function() {
-    this.TEST_TIMEOUT = 500;
-};
+// Timeout is 2 seconds to allow physical devices enough
+// time to query the response. This is important for some
+// Android devices.
+var Tests = function() {};
+Tests.TEST_TIMEOUT = 2000;
 
-var tests = new Tests();
+document.addEventListener('deviceready', function() {
+    var tests = new Tests();
 
-// Runs each function in Tests that contains 'Tests' in the name.
-function run() {
+    // Each group of tests are declared as a function in the object `Tests`.
+    // A group of tests are identified by a name that contains the word 'Tests'.
+    //
+    // Load each group of tests into QUnit
     for (var t in tests) {
         if (t.indexOf('Tests') > -1) {
             tests[t]();
         }
     }
+    
+    // Start the QUnit test suite
     QUnit.start();
-}
-
-document.addEventListener('DOMContentLoaded', function() {
-    document.addEventListener('deviceready', run, false);
 }, false);

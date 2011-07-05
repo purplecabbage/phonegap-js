@@ -4,51 +4,43 @@
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
     <meta name="viewport" content="width=device-width, height=device-height, user-scalable=yes, initial-scale=1.0;" />
 
-    <title>PhoneGap API Spec</title>
+    <title>PhoneGap Test Suite</title>
 
     <!-- Load QUnit -->
-    <link rel="stylesheet" type="text/css" href="qunit/qunit/qunit.css" />
-    <script type="text/javascript" src="qunit/qunit/qunit.js"></script>
+    <link rel="stylesheet" type="text/css" href="qunit/qunit.css" />
+    <script type="text/javascript" src="qunit/qunit.js"></script>
+
+    <!-- Source -->
+    <script type="text/javascript" src="phonegap.x.x.x.js"></script>
 
     <!-- Load Test Runner -->
     <script type="text/javascript" src="test-runner.js"></script>
-    
-    <!-- Source -->
-    <script type="text/javascript" src="../src/phonegap.core.js"></script>
-    <script type="text/javascript" src="../lib/phonegap/phonegap.js"></script>
-    <script type="text/javascript" src="../src/accelerometer.js"></script>
-    <script type="text/javascript" src="../src/camera.js"></script>
-    <script type="text/javascript" src="../src/contact.js"></script>
-    <script type="text/javascript" src="../src/device.js"></script>
-    <!-- <script type="text/javascript" src="../src/file.js"></script> -->
-    <script type="text/javascript" src="../src/geolocation.js"></script>
-    <script type="text/javascript" src="../src/media.js"></script>
-    <script type="text/javascript" src="../src/network.js"></script>
-    <script type="text/javascript" src="../src/notification.js"></script>
-    <script type="text/javascript" src="../src/position.js"></script>
-    
+
     <!-- Tests -->
-    <script type="text/javascript" src="mobile-spec/tests/accelerometer.tests.js"></script>
-    <script type="text/javascript" src="tests/blob.test.js"></script>
-    <script type="text/javascript" src="mobile-spec/tests/camera.tests.js"></script>
-    <script type="text/javascript" src="mobile-spec/tests/contacts.tests.js"></script>
-    <script type="text/javascript" src="mobile-spec/tests/device.tests.js"></script>
-    <script type="text/javascript" src="tests/eventtarget.test.js"></script>
-    <!-- <script type="text/javascript" src="mobile-spec/tests/file.tests.js"></script>-->
-    <script type="text/javascript" src="mobile-spec/tests/geolocation.tests.js"></script>
-    <!-- <script type="text/javascript" src="mobile-spec/tests/map.tests.js"></script>-->
-    <script type="text/javascript" src="mobile-spec/tests/media.tests.js"></script>
-    <script type="text/javascript" src="mobile-spec/tests/network.tests.js"></script>
-    <script type="text/javascript" src="mobile-spec/tests/notification.tests.js"></script>
-    <!-- <script type="text/javascript" src="mobile-spec/tests/orientation.tests.js"></script>-->
-    <script type="text/javascript" src="tests/phonegap.test.js"></script>
-    <script type="text/javascript" src="tests/position.test.js"></script>
-    <!-- <script type="text/javascript" src="mobile-spec/tests/sms.tests.js"></script>-->
-    <!-- <script type="text/javascript" src="mobile-spec/tests/telephony.tests.js"></script>-->
+    <script type="text/javascript" src="test/accelerometer.js"></script>
+    <script type="text/javascript" src="test/blob.js"></script>
+    <script type="text/javascript" src="test/camera.js"></script>
+    <script type="text/javascript" src="test/capture.js"></script>
+    <script type="text/javascript" src="test/contacts.js"></script>
+    <script type="text/javascript" src="test/device.js"></script>
+    <script type="text/javascript" src="test/eventtarget.js"></script>
+    <script type="text/javascript" src="test/file.js"></script>
+    <script type="text/javascript" src="test/geolocation.js"></script>
+    <script type="text/javascript" src="test/media.js"></script>
+    <script type="text/javascript" src="test/network.js"></script>
+    <script type="text/javascript" src="test/notification.js"></script>
+    <script type="text/javascript" src="test/orientation.js"></script>
+    <script type="text/javascript" src="test/phonegap.js"></script>
+    <script type="text/javascript" src="test/position.js"></script>
+    <script type="text/javascript" src="test/sms.js"></script>
+    <script type="text/javascript" src="test/storage.js"></script>
+    <script type="text/javascript" src="test/system.js"></script>
+    <script type="text/javascript" src="test/telephony.js"></script>
   </head>
     <body>
-        <h1 id="qunit-header">PhoneGap API Spec</h1>
+        <h1 id="qunit-header">PhoneGap Test Suite</h1>
         <h2 id="qunit-banner"></h2>
+        <div id="qunit-testrunner-toolbar"></div>
         <h2 id="qunit-userAgent"></h2>
         <ol id="qunit-tests"></ol>
         <div id="qunit-fixture">
