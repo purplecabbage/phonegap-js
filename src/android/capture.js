@@ -6,9 +6,6 @@
  * Copyright (c) 2010-2011, IBM Corporation
  */
 
-if (!PhoneGap.hasResource("capture")) {
-PhoneGap.addResource("capture");
-	
 /**
  * Represents a single file.
  *
@@ -33,7 +30,7 @@ var MediaFile = function(name, fullPath, type, lastModifiedDate, size){
  * @param {Function} errorCB
  */
 MediaFile.prototype.getFormatData = function(successCallback, errorCallback){
-	PhoneGap.exec(successCallback, errorCallback, "Capture", "getFormatData", [this.fullPath, this.type]);
+	PG.exec(successCallback, errorCallback, "Capture", "getFormatData", [this.fullPath, this.type]);
 };
 
 /**
@@ -66,71 +63,6 @@ CaptureError.CAPTURE_APPLICATION_BUSY = 1;
 CaptureError.CAPTURE_INVALID_ARGUMENT = 2;
 CaptureError.CAPTURE_NO_MEDIA_FILES = 3;
 CaptureError.CAPTURE_NOT_SUPPORTED = 20;
-
-/**
- * The Capture interface exposes an interface to the camera and microphone of the hosting device.
- */
-var Capture = function(){
-	this.supportedAudioModes = [];
-	this.supportedImageModes = [];
-	this.supportedVideoModes = [];
-};
-
-/**
- * Launch audio recorder application for recording audio clip(s).
- *
- * @param {Function} successCB
- * @param {Function} errorCB
- * @param {CaptureAudioOptions} options
- */
-Capture.prototype.captureAudio = function(successCallback, errorCallback, options){
-	PhoneGap.exec(successCallback, errorCallback, "Capture", "captureAudio", [options]);
-};
-
-/**
- * Launch camera application for taking image(s).
- *
- * @param {Function} successCB
- * @param {Function} errorCB
- * @param {CaptureImageOptions} options
- */
-Capture.prototype.captureImage = function(successCallback, errorCallback, options){
-	PhoneGap.exec(successCallback, errorCallback, "Capture", "captureImage", [options]);
-};
-
-/**
- * Launch camera application for taking image(s).
- *
- * @param {Function} successCB
- * @param {Function} errorCB
- * @param {CaptureImageOptions} options
- */
-Capture.prototype._castMediaFile = function(pluginResult){
-	var mediaFiles = [];
-	var i;
-	for (i = 0; i < pluginResult.message.length; i++) {
-		var mediaFile = new MediaFile();
-		mediaFile.name = pluginResult.message[i].name;
-		mediaFile.fullPath = pluginResult.message[i].fullPath;
-		mediaFile.type = pluginResult.message[i].type;
-		mediaFile.lastModifiedDate = pluginResult.message[i].lastModifiedDate;
-		mediaFile.size = pluginResult.message[i].size;
-		mediaFiles.push(mediaFile);
-	}
-	pluginResult.message = mediaFiles;
-	return pluginResult;
-};
-
-/**
- * Launch device camera application for recording video(s).
- *
- * @param {Function} successCB
- * @param {Function} errorCB
- * @param {CaptureVideoOptions} options
- */
-Capture.prototype.captureVideo = function(successCallback, errorCallback, options){
-	PhoneGap.exec(successCallback, errorCallback, "Capture", "captureVideo", [options]);
-};
 
 /**
  * Encapsulates a set of parameters that the capture device supports.
@@ -180,12 +112,67 @@ var CaptureAudioOptions = function(){
 	this.mode = null;
 };
 
-PhoneGap.addConstructor(function(){
-	if (typeof navigator.device === "undefined") {
-		navigator.device = window.device = new Device();
-	}
-	if (typeof navigator.device.capture === "undefined") {
-		navigator.device.capture = window.device.capture = new Capture();
-	}
-});
-}
+/**
+ * The Capture interface exposes an interface to the camera and microphone of the hosting device.
+ */
+PG.capture = {
+	supportedAudioModes: [],
+	supportedImageModes: [],
+	supportedVideoModes: [],
+
+    /**
+     * Launch audio recorder application for recording audio clip(s).
+     *
+     * @param {Function} successCB
+     * @param {Function} errorCB
+     * @param {CaptureAudioOptions} options
+     */
+    captureAudio: function(successCallback, errorCallback, options){
+    	PG.exec(successCallback, errorCallback, "Capture", "captureAudio", [options]);
+    },
+
+    /**
+     * Launch camera application for taking image(s).
+     *
+     * @param {Function} successCB
+     * @param {Function} errorCB
+     * @param {CaptureImageOptions} options
+     */
+    captureImage: function(successCallback, errorCallback, options){
+    	PG.exec(successCallback, errorCallback, "Capture", "captureImage", [options]);
+    },
+
+    /**
+     * Launch camera application for taking image(s).
+     *
+     * @param {Function} successCB
+     * @param {Function} errorCB
+     * @param {CaptureImageOptions} options
+     */
+    _castMediaFile: function(pluginResult){
+    	var mediaFiles = [];
+    	var i;
+    	for (i = 0; i < pluginResult.message.length; i++) {
+    		var mediaFile = new MediaFile();
+    		mediaFile.name = pluginResult.message[i].name;
+    		mediaFile.fullPath = pluginResult.message[i].fullPath;
+    		mediaFile.type = pluginResult.message[i].type;
+    		mediaFile.lastModifiedDate = pluginResult.message[i].lastModifiedDate;
+    		mediaFile.size = pluginResult.message[i].size;
+    		mediaFiles.push(mediaFile);
+    	}
+    	pluginResult.message = mediaFiles;
+    	return pluginResult;
+    },
+
+    /**
+     * Launch device camera application for recording video(s).
+     *
+     * @param {Function} successCB
+     * @param {Function} errorCB
+     * @param {CaptureVideoOptions} options
+     */
+    captureVideo: function(successCallback, errorCallback, options){
+    	PG.exec(successCallback, errorCallback, "Capture", "captureVideo", [options]);
+    }
+};

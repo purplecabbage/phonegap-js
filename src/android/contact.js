@@ -6,9 +6,6 @@
  * Copyright (c) 2010-2011, IBM Corporation
  */
 
-if (!PhoneGap.hasResource("contact")) {
-PhoneGap.addResource("contact");
-
 /**
 * Contains information about a single contact.
 * @constructor
@@ -85,7 +82,7 @@ Contact.prototype.remove = function(successCB, errorCB) {
         errorCB(errorObj);
     }
     else {
-        PhoneGap.exec(successCB, errorCB, "Contacts", "remove", [this.id]);
+        PG.exec(successCB, errorCB, "Contacts", "remove", [this.id]);
     }
 };
 
@@ -95,7 +92,7 @@ Contact.prototype.remove = function(successCB, errorCB) {
 * @return copy of this Contact
 */
 Contact.prototype.clone = function() {
-    var clonedContact = PhoneGap.clone(this);
+    var clonedContact = PG.clone(this);
     var i;
     clonedContact.id = null;
     clonedContact.rawId = null;
@@ -149,7 +146,7 @@ Contact.prototype.clone = function() {
 * @param errorCB error callback
 */
 Contact.prototype.save = function(successCB, errorCB) {
-    PhoneGap.exec(successCB, errorCB, "Contacts", "save", [this]);
+    PG.exec(successCB, errorCB, "Contacts", "save", [this]);
 };
 
 /**
@@ -227,62 +224,6 @@ var ContactOrganization = function(name, dept, title) {
 };
 
 /**
-* Represents a group of Contacts.
-* @constructor
-*/
-var Contacts = function() {
-    this.inProgress = false;
-    this.records = [];
-};
-/**
-* Returns an array of Contacts matching the search criteria.
-* @param fields that should be searched
-* @param successCB success callback
-* @param errorCB error callback
-* @param {ContactFindOptions} options that can be applied to contact searching
-* @return array of Contacts matching search criteria
-*/
-Contacts.prototype.find = function(fields, successCB, errorCB, options) {
-    PhoneGap.exec(successCB, errorCB, "Contacts", "search", [fields, options]);
-};
-
-/**
-* This function creates a new contact, but it does not persist the contact
-* to device storage. To persist the contact to device storage, invoke
-* contact.save().
-* @param properties an object who's properties will be examined to create a new Contact
-* @returns new Contact object
-*/
-Contacts.prototype.create = function(properties) {
-    var i;
-	var contact = new Contact();
-    for (i in properties) {
-        if (contact[i] !== 'undefined') {
-            contact[i] = properties[i];
-        }
-    }
-    return contact;
-};
-
-/**
-* This function returns and array of contacts.  It is required as we need to convert raw
-* JSON objects into concrete Contact objects.  Currently this method is called after
-* navigator.service.contacts.find but before the find methods success call back.
-*
-* @param jsonArray an array of JSON Objects that need to be converted to Contact objects.
-* @returns an array of Contact objects
-*/
-Contacts.prototype.cast = function(pluginResult) {
-	var contacts = [];
-	var i;
-	for (i=0; i<pluginResult.message.length; i++) {
-		contacts.push(navigator.service.contacts.create(pluginResult.message[i]));
-	}
-	pluginResult.message = contacts;
-	return pluginResult;
-};
-
-/**
  * ContactFindOptions.
  * @constructor
  * @param filter used to match contacts against
@@ -296,14 +237,58 @@ var ContactFindOptions = function(filter, multiple, updatedSince) {
 };
 
 /**
- * Add the contact interface into the browser.
- */
-PhoneGap.addConstructor(function() {
-    if(typeof navigator.service === "undefined") {
-        navigator.service = {};
+* Represents a group of Contacts.
+* @constructor
+*/
+PG.contacts = {
+    inProgress: false,
+    records: [],
+
+    /**
+    * Returns an array of Contacts matching the search criteria.
+    * @param fields that should be searched
+    * @param successCB success callback
+    * @param errorCB error callback
+    * @param {ContactFindOptions} options that can be applied to contact searching
+    * @return array of Contacts matching search criteria
+    */
+    find: function(fields, successCB, errorCB, options) {
+        PG.exec(successCB, errorCB, "Contacts", "search", [fields, options]);
+    },
+
+    /**
+    * This function creates a new contact, but it does not persist the contact
+    * to device storage. To persist the contact to device storage, invoke
+    * contact.save().
+    * @param properties an object who's properties will be examined to create a new Contact
+    * @returns new Contact object
+    */
+    create: function(properties) {
+        var i;
+    	var contact = new Contact();
+        for (i in properties) {
+            if (contact[i] !== 'undefined') {
+                contact[i] = properties[i];
+            }
+        }
+        return contact;
+    },
+
+    /**
+    * This function returns and array of contacts.  It is required as we need to convert raw
+    * JSON objects into concrete Contact objects.  Currently this method is called after
+    * navigator.service.contacts.find but before the find methods success call back.
+    *
+    * @param jsonArray an array of JSON Objects that need to be converted to Contact objects.
+    * @returns an array of Contact objects
+    */
+    cast: function(pluginResult) {
+    	var contacts = [];
+    	var i;
+    	for (i=0; i<pluginResult.message.length; i++) {
+    		contacts.push(navigator.service.contacts.create(pluginResult.message[i]));
+    	}
+    	pluginResult.message = contacts;
+    	return pluginResult;
     }
-    if(typeof navigator.service.contacts === "undefined") {
-        navigator.service.contacts = new Contacts();
-    }
-});
-}
+};

@@ -6,9 +6,6 @@
  * Copyright (c) 2010-2011, IBM Corporation
  */
 
-if (!PhoneGap.hasResource("filetransfer")) {
-PhoneGap.addResource("filetransfer");
-
 /**
  * FileTransfer uploads a file to a remote server.
  * @constructor
@@ -65,7 +62,7 @@ FileTransfer.prototype.upload = function(filePath, server, successCallback, erro
         }
     }
 
-    PhoneGap.exec(successCallback, errorCallback, 'FileTransfer', 'upload', [filePath, server, fileKey, fileName, mimeType, params, debug]);
+    PG.exec(successCallback, errorCallback, 'FileTransfer', 'upload', [filePath, server, fileKey, fileName, mimeType, params, debug]);
 };
 
 /**
@@ -82,4 +79,3 @@ var FileUploadOptions = function(fileKey, fileName, mimeType, params) {
     this.mimeType = mimeType || null;
     this.params = params || null;
 };
-}

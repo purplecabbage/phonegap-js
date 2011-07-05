@@ -21,7 +21,7 @@ PG.accelerometer = {
      */
     timers: {},
     
-    ERROR_MSG: ["Not running", "Starting", "", "Failed to start"],
+    // ERROR_MSG: ["Not running", "Starting", "", "Failed to start"],
 
     /**
      * Asynchronously aquires the current acceleration.
@@ -104,4 +104,4 @@ PG.accelerometer = {
             delete PG.accelerometer.timers[id];
         }
     }
-}
+};

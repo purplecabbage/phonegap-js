@@ -6,9 +6,6 @@
  * Copyright (c) 2010-2011, IBM Corporation
  */
 
-if (!PhoneGap.hasResource("position")) {
-PhoneGap.addResource("position");
-
 /**
  * This class contains position information.
  * @param {Object} lat
@@ -58,6 +55,20 @@ var Coordinates = function(lat, lng, alt, acc, head, vel, altacc) {
 };
 
 /**
+ * This class contains information about any GSP errors.
+ * @constructor
+ */
+var PositionError = function() {
+	this.code = null;
+	this.message = "";
+};
+
+PositionError.UNKNOWN_ERROR = 0;
+PositionError.PERMISSION_DENIED = 1;
+PositionError.POSITION_UNAVAILABLE = 2;
+PositionError.TIMEOUT = 3;
+
+/**
  * This class specifies the options for requesting position data.
  * @constructor
  */
@@ -72,18 +83,3 @@ var PositionOptions = function() {
 	 */
 	this.timeout = 10000;
 };
-
-/**
- * This class contains information about any GSP errors.
- * @constructor
- */
-var PositionError = function() {
-	this.code = null;
-	this.message = "";
-};
-
-PositionError.UNKNOWN_ERROR = 0;
-PositionError.PERMISSION_DENIED = 1;
-PositionError.POSITION_UNAVAILABLE = 2;
-PositionError.TIMEOUT = 3;
-}
