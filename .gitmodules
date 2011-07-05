@@ -1,6 +1,0 @@
-[submodule "test/qunit"]
-	path = test/qunit
-	url = git://github.com/jquery/qunit.git
-[submodule "test/mobile-spec"]
-	path = test/mobile-spec
-	url = git://github.com/phonegap/mobile-spec.git
