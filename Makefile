@@ -1,4 +1,4 @@
-.SILENT: help test blackberry-webworks build check update clean
+.SILENT: help test android blackberry-webworks build check update clean
 
 VERSION = $(strip $(shell cat VERSION))
 
@@ -25,6 +25,26 @@ FILES = src/phonegap.core.js \
         src/position.js \
         ${PHONEGAP_OVERRIDE_JS}
 
+ANDROID_FILES = src/android/phonegap.js \
+                src/android/accelerometer.js \
+                src/android/app.js \
+                src/android/camera.js \
+                src/android/capture.js \
+                src/android/compass.js \
+                src/android/contact.js \
+                src/android/crypto.js \
+                src/android/device.js \
+                src/android/file.js \
+                src/android/filetransfer.js \
+                src/android/geolocation.js \
+                src/android/media.js \
+                src/android/network.js \
+                src/android/media.js \
+                src/android/network.js \
+                src/android/notification.js \
+                src/android/position.js \
+                src/android/storage.js
+
 BLACKBERRY_WEBWORKS_FILES = src/blackberry-webworks/*.js
 
 help:
@@ -41,6 +61,7 @@ help:
 	echo "COMMANDS"
 	echo "  help .................. This help menu."
 	echo "  test .................. Generate test suite web directory."
+	echo "  android ............... Generate phonegap.js for Android."
 	echo "  blackberry-webworks ... Generate phonegap.js for BlackBerry WebWorks."
 	echo "  build ................. Generate phonegap.js (Incomplete)."
 	echo "  check ................. Dependency check."
@@ -60,6 +81,14 @@ test: check
 	echo "  => Done!"
 	echo "How to Install:"
 	echo "  => cp test/* /path/to/project/www"
+
+android: clean update
+	echo "Build phonegap.${VERSION}.js for Android..."
+	mkdir -p ${BUILD_DIR}
+	echo "  => ${PHONEGAP_JS}"
+	cat ${ANDROID_FILES} > ${PHONEGAP_JS}
+	echo "  => ${PHONEGAP_JS_MIN}"
+	java -jar ./lib/yuicompressor-2.4.2/build/yuicompressor-2.4.2.jar ${PHONEGAP_JS} -o ${PHONEGAP_JS_MIN}
 
 blackberry-webworks: clean update
 	echo "Build phonegap.${VERSION}.js for BlackBerry WebWorks..."
