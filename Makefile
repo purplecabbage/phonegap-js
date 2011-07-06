@@ -1,4 +1,4 @@
-.SILENT: help test android blackberry-webworks build check update clean
+.SILENT: help test android blackberry-webworks build check clean
 
 VERSION = $(strip $(shell cat VERSION))
 
@@ -60,13 +60,16 @@ help:
 	echo
 	echo "COMMANDS"
 	echo "  help .................. This help menu."
-	echo "  test .................. Generate test suite web directory."
+	echo "  test .................. Update test suite with the last generated phonegap.js."
 	echo "  android ............... Generate phonegap.js for Android."
 	echo "  blackberry-webworks ... Generate phonegap.js for BlackBerry WebWorks."
 	echo "  build ................. Generate phonegap.js (Incomplete)."
-	echo "  check ................. Dependency check."
-	echo "  update ................ Update submodules."
+	echo "  check ................. Dependency check for build task."
 	echo
+	echo "USAGE"
+	echo "  make help"
+	echo "  make android"
+	echo "  make android test"
 
 test: check
 	echo "Updating test suite..."
@@ -78,11 +81,10 @@ test: check
 	mv test/${PHONEGAP_JS_FILE} test/phonegap.js
 	mv test/${PHONEGAP_JS_MIN_FILE} test/phonegap.min.js
 	
-	echo "  => Done!"
-	echo "How to Install:"
-	echo "  => cp test/* /path/to/project/www"
+	echo "Test Suite Usage:"
+	echo "  => cp -R test/* /path/to/project/www"
 
-android: clean update
+android: clean
 	echo "Build phonegap.${VERSION}.js for Android..."
 	mkdir -p ${BUILD_DIR}
 	echo "  => ${PHONEGAP_JS}"
@@ -90,7 +92,7 @@ android: clean update
 	echo "  => ${PHONEGAP_JS_MIN}"
 	java -jar ./lib/yuicompressor-2.4.2/build/yuicompressor-2.4.2.jar ${PHONEGAP_JS} -o ${PHONEGAP_JS_MIN}
 
-blackberry-webworks: clean update
+blackberry-webworks: clean
 	echo "Build phonegap.${VERSION}.js for BlackBerry WebWorks..."
 	mkdir -p ${BUILD_DIR}
 	echo "  => ${PHONEGAP_JS}"
@@ -98,7 +100,7 @@ blackberry-webworks: clean update
 	echo "  => ${PHONEGAP_JS_MIN}"
 	java -jar ./lib/yuicompressor-2.4.2/build/yuicompressor-2.4.2.jar ${PHONEGAP_JS} -o ${PHONEGAP_JS_MIN}
 
-build: clean check update
+build: clean check
 	echo "Building..."
 	mkdir -p ${BUILD_DIR}
 	echo "  => ${PHONEGAP_JS}"
@@ -110,10 +112,6 @@ check:
 	echo "Checking dependencies..."
 	if [ ! -e ${PHONEGAP_EXEC_JS} ]; then echo " => Error: Cannot find ${PHONEGAP_EXEC_JS}"; exit 1; fi
 	if [ ! -e ${PHONEGAP_OVERRIDE_JS} ]; then touch ${PHONEGAP_OVERRIDE_JS}; fi
-
-update:
-	echo "Updating submodules..."
-	git submodule update --init
 
 clean:
 	if test -d ${BUILD_DIR}; then \
