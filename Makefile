@@ -1,10 +1,13 @@
-.SILENT: help blackberry-webworks build check update clean
+.SILENT: help test blackberry-webworks build check update clean
 
 VERSION = $(strip $(shell cat VERSION))
 
+PHONEGAP_JS_FILE     = phonegap.${VERSION}.js
+PHONEGAP_JS_MIN_FILE = phonegap.${VERSION}.min.js
+
 BUILD_DIR       = build
-PHONEGAP_JS     = ${BUILD_DIR}/phonegap.${VERSION}.js
-PHONEGAP_JS_MIN = ${BUILD_DIR}/phonegap.${VERSION}.min.js
+PHONEGAP_JS     = ${BUILD_DIR}/${PHONEGAP_JS_FILE}
+PHONEGAP_JS_MIN = ${BUILD_DIR}/${PHONEGAP_JS_MIN_FILE}
 
 PHONEGAP_EXEC_JS     = lib/phonegap/phonegap.exec.js
 PHONEGAP_OVERRIDE_JS = lib/phonegap/phonegap.override.js
@@ -37,11 +40,26 @@ help:
 	echo
 	echo "COMMANDS"
 	echo "  help .................. This help menu."
+	echo "  test .................. Generate test suite web directory."
 	echo "  blackberry-webworks ... Generate phonegap.js for BlackBerry WebWorks."
 	echo "  build ................. Generate phonegap.js (Incomplete)."
 	echo "  check ................. Dependency check."
 	echo "  update ................ Update submodules."
 	echo
+
+test: check
+	echo "Updating test suite..."
+	
+	if [ ! -e ${PHONEGAP_JS} ]; then echo " => Error: Cannot find ${PHONEGAP_JS}"; exit 1; fi
+	if [ ! -e ${PHONEGAP_JS_MIN} ]; then echo " => Error: Cannot find ${PHONEGAP_JS_MIN}"; exit 1; fi
+	
+	cp ${BUILD_DIR}/*.js test/
+	mv test/${PHONEGAP_JS_FILE} test/phonegap.js
+	mv test/${PHONEGAP_JS_MIN_FILE} test/phonegap.min.js
+	
+	echo "  => Done!"
+	echo "How to Install:"
+	echo "  => cp test/* /path/to/project/www"
 
 blackberry-webworks: clean update
 	echo "Build phonegap.${VERSION}.js for BlackBerry WebWorks..."

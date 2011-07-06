@@ -7,3 +7,6 @@ phonegap.override.js
 
 # Build files
 /build
+
+# Test
+/test/phonegap*.js
