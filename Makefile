@@ -140,7 +140,7 @@ define build_javascript
 	cat ${1} > ${PHONEGAP_JS}
 	$(call echo_add_file, ${1}); \
 	# add all universal JavaScript files
-	find ./src/*.js | xargs -J % cat % >> ${PHONEGAP_JS}
+	find ./src/*.js | xargs cat >> ${PHONEGAP_JS}
 	for file in src/*.js; do \
 		$(call echo_add_file, $$file); \
 	done
