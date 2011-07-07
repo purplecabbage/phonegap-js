@@ -98,25 +98,7 @@ test: check
 
 android: clean
 	echo "Build phonegap.${VERSION}.js for Android..."
-	mkdir -p ${BUILD_DIR}
-	echo "  => ${PHONEGAP_JS}"
-	
-	cat ${ANDROID_PHONEGAP_EXEC} > ${PHONEGAP_JS}
-	echo "    ✔ ${ANDROID_PHONEGAP_EXEC} was added"; \
-	
-	find ./src/*.js | xargs -J % cat % >> ${PHONEGAP_JS}
-	
-	for file in ${ANDROID_FILES}; do \
-		if [ ! -e src/`basename $$file` ]; then \
-			cat $$file >> ${PHONEGAP_JS}; \
-			echo "    ✔ $$file was added"; \
-		else \
-			echo "    ✖ $$file was skipped"; \
-		fi; \
-	done
-	
-	echo "  => ${PHONEGAP_JS_MIN}"
-	java -jar ./lib/yuicompressor-2.4.2/build/yuicompressor-2.4.2.jar ${PHONEGAP_JS} -o ${PHONEGAP_JS_MIN}
+	$(call build_javascript, ${ANDROID_PHONEGAP_EXEC}, ${ANDROID_FILES})
 
 blackberry-webworks: clean
 	echo "Build phonegap.${VERSION}.js for BlackBerry WebWorks..."
@@ -143,3 +125,26 @@ clean:
 	if test -d ${BUILD_DIR}; then \
 		rm -rf ${BUILD_DIR}; \
 	fi
+
+define build_javascript
+	# create the build directory
+	mkdir -p ${BUILD_DIR}
+	echo "  => ${PHONEGAP_JS}"
+	# add phonegap.exec.js to the top of phonegap.js
+	cat ${1} > ${PHONEGAP_JS}
+	echo "    ✔ ${1} was added"; \
+	# add all universal JavaScript files
+	find ./src/*.js | xargs -J % cat % >> ${PHONEGAP_JS}
+	# add each platform-specific file that is not implement as a universal file
+	for file in ${2}; do \
+		if [ ! -e src/`basename $$file` ]; then \
+			cat $$file >> ${PHONEGAP_JS}; \
+			echo "    ✔ $$file was added"; \
+		else \
+			echo "    ✖ $$file was skipped"; \
+		fi; \
+	done
+	# minify phonegap-js
+	echo "  => ${PHONEGAP_JS_MIN}"
+	java -jar ./lib/yuicompressor-2.4.2/build/yuicompressor-2.4.2.jar ${PHONEGAP_JS} -o ${PHONEGAP_JS_MIN}
+endef
