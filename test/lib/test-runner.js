@@ -1,6 +1,12 @@
 // Prevent QUnit from running when the DOM load event fires
 QUnit.config.autostart = false;
-sessionStorage.clear();
+
+// Prevent QUnit from caching previous test results
+// Wrapped in a try/catch for older browsers
+try {
+    sessionStorage.clear();
+} catch(e) {}
+
 
 // Timeout is 2 seconds to allow physical devices enough
 // time to query the response. This is important for some
