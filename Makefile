@@ -25,8 +25,20 @@ FILES = src/phonegap.core.js \
         src/position.js \
         ${PHONEGAP_OVERRIDE_JS}
 
-ANDROID_FILES = src/android/phonegap.js \
-                src/android/accelerometer.js \
+BASE_FILES = src/accelerometer.js \
+             src/camera.js \
+             src/contact.js \
+             src/device.js \
+             src/file.js \
+             src/geolocation.js \
+             src/media.js \
+             src/network.js \
+             src/notification.js \
+             src/phonegap.core.js \
+             src/position.js
+
+ANDROID_PHONEGAP_EXEC = src/android/phonegap.js
+ANDROID_FILES = src/android/accelerometer.js \
                 src/android/app.js \
                 src/android/camera.js \
                 src/android/capture.js \
@@ -88,7 +100,21 @@ android: clean
 	echo "Build phonegap.${VERSION}.js for Android..."
 	mkdir -p ${BUILD_DIR}
 	echo "  => ${PHONEGAP_JS}"
-	cat ${ANDROID_FILES} > ${PHONEGAP_JS}
+	
+	cat ${ANDROID_PHONEGAP_EXEC} > ${PHONEGAP_JS}
+	echo "    ✔ ${ANDROID_PHONEGAP_EXEC} was added"; \
+	
+	find ./src/*.js | xargs -J % cat % >> ${PHONEGAP_JS}
+	
+	for file in ${ANDROID_FILES}; do \
+		if [ ! -e src/`basename $$file` ]; then \
+			cat $$file >> ${PHONEGAP_JS}; \
+			echo "    ✔ $$file was added"; \
+		else \
+			echo "    ✖ $$file was skipped"; \
+		fi; \
+	done
+	
 	echo "  => ${PHONEGAP_JS_MIN}"
 	java -jar ./lib/yuicompressor-2.4.2/build/yuicompressor-2.4.2.jar ${PHONEGAP_JS} -o ${PHONEGAP_JS_MIN}
 
