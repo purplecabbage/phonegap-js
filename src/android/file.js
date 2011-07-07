@@ -279,7 +279,7 @@ FileReader.prototype = {
                 me.readyState = FileReader.DONE;
 
                 // If onloadend callback
-                PG.fileMgr.fire(me, 'onloadend', ({"type":"loadend", "target":me});
+                PG.fileMgr.fire(me, 'onloadend', ({"type":"loadend", "target":me}));
             }
         );
     },
