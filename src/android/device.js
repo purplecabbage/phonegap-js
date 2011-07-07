@@ -40,7 +40,7 @@ PG.device = {
         }
 
         // Get info
-        PhoneGap.exec(successCallback, errorCallback, "Device", "getDeviceInfo", []);
+        PG.exec(successCallback, errorCallback, "Device", "getDeviceInfo", []);
     }
 };
 

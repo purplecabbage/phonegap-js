@@ -942,6 +942,7 @@ LocalFileSystem.prototype = {
 /**
  * Add the FileSystem interface into the browser.
  */
+/*
 PG.addConstructor(function() {
 	var pgLocalFileSystem = new LocalFileSystem();
 	// Needed for cast methods
@@ -949,3 +950,4 @@ PG.addConstructor(function() {
     if(typeof window.requestFileSystem == "undefined") window.requestFileSystem  = pgLocalFileSystem.requestFileSystem;
     if(typeof window.resolveLocalFileSystemURI == "undefined") window.resolveLocalFileSystemURI = pgLocalFileSystem.resolveLocalFileSystemURI;
 });
+*/

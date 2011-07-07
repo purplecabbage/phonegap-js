@@ -6,9 +6,6 @@
  * Copyright (c) 2010-2011, IBM Corporation
  */
 
-if (!PhoneGap.hasResource("network")) {
-PhoneGap.addResource("network");
-
 /**
  * This class contains information about any NetworkStatus.
  * @constructor
@@ -56,7 +53,7 @@ Network.prototype.isReachable = function(uri, callback, options) {
     if (options && options.isIpAddress) {
         isIpAddress = options.isIpAddress;
     }
-    PhoneGap.exec(callback, null, "Network Status", "isReachable", [uri, isIpAddress]);
+    PG.exec(callback, null, "Network Status", "isReachable", [uri, isIpAddress]);
 };
 
 /**
@@ -77,7 +74,7 @@ var Connection = function() {
                 // set a timer if still offline at the end of timer send the offline event
                 me._timer = setTimeout(function(){
                     me.type = type;
-                    PhoneGap.fireEvent('offline');
+                    PG.fireEvent('offline');
                     me._timer = null;
                     }, me.timeout);
             } else {
@@ -87,13 +84,13 @@ var Connection = function() {
                     me._timer = null;
                 }
                 me.type = type;
-                PhoneGap.fireEvent('online');
+                PG.fireEvent('online');
             }
             
             // should only fire this once
             if (me._firstRun) {
                 me._firstRun = false;
-                PhoneGap.onPhoneGapConnectionReady.fire();
+                PG.onPhoneGapConnectionReady.fire();
             }            
         },
         function(e) {
@@ -117,10 +114,10 @@ Connection.NONE = "none";
  */
 Connection.prototype.getInfo = function(successCallback, errorCallback) {
     // Get info
-    PhoneGap.exec(successCallback, errorCallback, "Network Status", "getConnectionInfo", []);
+    PG.exec(successCallback, errorCallback, "Network Status", "getConnectionInfo", []);
 };
 
-
+/*
 PhoneGap.addConstructor(function() {
     if (typeof navigator.network === "undefined") {
         navigator.network = new Network();
@@ -129,4 +126,4 @@ PhoneGap.addConstructor(function() {
         navigator.network.connection = new Connection();
     }
 });
-}
+*/

@@ -183,6 +183,7 @@ PG.geolocation.usePG = function() {
     navigator.geolocation.stop = navigator._geo.stop;
 };
 
+/*
 PG.addConstructor(function() {
     navigator._geo = new PG.geolocation();
 
@@ -192,3 +193,4 @@ PG.addConstructor(function() {
         PG.geolocation.usingPG = true;
     }
 });
+*/
