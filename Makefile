@@ -51,13 +51,23 @@ ANDROID_FILES = src/android/accelerometer.js \
                 src/android/geolocation.js \
                 src/android/media.js \
                 src/android/network.js \
-                src/android/media.js \
-                src/android/network.js \
                 src/android/notification.js \
                 src/android/position.js \
                 src/android/storage.js
 
-BLACKBERRY_WEBWORKS_FILES = src/blackberry-webworks/*.js
+BLACKBERRY_WEBWORKS_PHONEGAP_EXEC = src/blackberry-webworks/_phonegap.js
+BLACKBERRY_WEBWORKS_FILES = src/blackberry-webworks/accelerometer.js \
+                            src/blackberry-webworks/camera.js \
+                            src/blackberry-webworks/console.js \
+                            src/blackberry-webworks/contact.js \
+                            src/blackberry-webworks/device.js \
+                            src/blackberry-webworks/file.js \
+                            src/blackberry-webworks/filetransfer.js \
+                            src/blackberry-webworks/geolocation.js \
+                            src/blackberry-webworks/media.js \
+                            src/blackberry-webworks/network.js \
+                            src/blackberry-webworks/notification.js \
+                            src/blackberry-webworks/position.js 
 
 help:
 	echo
@@ -102,11 +112,7 @@ android: clean
 
 blackberry-webworks: clean
 	echo "Build phonegap.${VERSION}.js for BlackBerry WebWorks..."
-	mkdir -p ${BUILD_DIR}
-	echo "  => ${PHONEGAP_JS}"
-	cat ${BLACKBERRY_WEBWORKS_FILES} > ${PHONEGAP_JS}
-	echo "  => ${PHONEGAP_JS_MIN}"
-	java -jar ./lib/yuicompressor-2.4.2/build/yuicompressor-2.4.2.jar ${PHONEGAP_JS} -o ${PHONEGAP_JS_MIN}
+	$(call build_javascript, ${BLACKBERRY_WEBWORKS_PHONEGAP_EXEC}, ${BLACKBERRY_WEBWORKS_FILES})
 
 build: clean check
 	echo "Building..."
