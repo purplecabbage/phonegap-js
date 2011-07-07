@@ -138,19 +138,30 @@ define build_javascript
 	echo "  => ${PHONEGAP_JS}"
 	# add phonegap.exec.js to the top of phonegap.js
 	cat ${1} > ${PHONEGAP_JS}
-	echo "    ✔ ${1} was added"; \
+	$(call echo_add_file, ${1}); \
 	# add all universal JavaScript files
 	find ./src/*.js | xargs -J % cat % >> ${PHONEGAP_JS}
+	for file in src/*.js; do \
+		$(call echo_add_file, $$file); \
+	done
 	# add each platform-specific file that is not implement as a universal file
 	for file in ${2}; do \
 		if [ ! -e src/`basename $$file` ]; then \
 			cat $$file >> ${PHONEGAP_JS}; \
-			echo "    ✔ $$file was added"; \
+			$(call echo_add_file, $$file); \
 		else \
-			echo "    ✖ $$file was skipped"; \
+			$(call echo_skip_file, $$file); \
 		fi; \
 	done
 	# minify phonegap-js
 	echo "  => ${PHONEGAP_JS_MIN}"
 	java -jar ./lib/yuicompressor-2.4.2/build/yuicompressor-2.4.2.jar ${PHONEGAP_JS} -o ${PHONEGAP_JS_MIN}
+endef
+
+define echo_add_file
+	echo "    ✔ ${1} was added"
+endef
+
+define echo_skip_file
+	echo "    ✖ ${1} was skipped"
 endef
