@@ -1,4 +1,4 @@
-.SILENT: help test android blackberry-webworks build check clean
+.SILENT: help test android blackberry-webworks ios build check clean
 
 VERSION = $(strip $(shell cat VERSION))
 
@@ -69,6 +69,28 @@ BLACKBERRY_WEBWORKS_FILES = src/blackberry-webworks/accelerometer.js \
                             src/blackberry-webworks/notification.js \
                             src/blackberry-webworks/position.js 
 
+IOS_PHONEGAP_EXEC = src/ios/phonegap.js.base
+IOS_PHONEGAP_FILES = src/ios/GetFunctionName.js \
+                     src/ios/phonegap.js.base \
+                     src/ios/debugconsole.js \
+                     src/ios/position.js \
+                     src/ios/acceleration.js \
+                     src/ios/accelerometer.js \
+                     src/ios/camera.js \
+                     src/ios/capture.js \
+                     src/ios/contact.js \
+                     src/ios/device.js \
+                     src/ios/file.js \
+                     src/ios/filetransfer.js \
+                     src/ios/geolocation.js \
+                     src/ios/compass.js \
+                     src/ios/media.js \
+                     src/ios/notification.js \
+                     src/ios/orientation.js \
+                     src/ios/sms.js \
+                     src/ios/telephony.js \
+                     src/ios/network.js
+
 help:
 	echo
 	echo "NAME"
@@ -113,6 +135,10 @@ android: clean
 blackberry-webworks: clean
 	echo "Build phonegap.${VERSION}.js for BlackBerry WebWorks..."
 	$(call build_javascript, ${BLACKBERRY_WEBWORKS_PHONEGAP_EXEC}, ${BLACKBERRY_WEBWORKS_FILES})
+
+ios: clean
+	echo "Build phonegap.${VERSION}.js for iOS..."
+	$(call build_javascript, ${IOS_PHONEGAP_EXEC}, ${IOS_PHONEGAP_FILES})
 
 build: clean check
 	echo "Building..."
