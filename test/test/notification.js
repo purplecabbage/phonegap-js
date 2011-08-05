@@ -19,4 +19,9 @@ Tests.prototype.NotificationTests = function() {
 		ok(typeof navigator.notification.alert != 'undefined' && navigator.notification.alert != null, "navigator.notification.alert should not be null.");
 		ok(typeof navigator.notification.alert == 'function', "navigator.notification.alert should be a function.");
 	});
+	test("should contain a confirm function", function() {
+		expect(2);
+		ok(typeof navigator.notification.confirm != 'undefined' && navigator.notification.confirm != null, "navigator.notification.confirm should not be null.");
+		ok(typeof navigator.notification.confirm == 'function', "navigator.notification.confirm should be a function.");
+	});	
 };
