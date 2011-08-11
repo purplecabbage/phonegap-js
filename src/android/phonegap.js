@@ -47,6 +47,9 @@ var PG = {
     }
 };
 
+// alias PG to PhoneGap for compatibilty with common JS
+var PhoneGap = PG;
+
 /**
  * Custom pub-sub channel that can have functions subscribed to it
  * @constructor
