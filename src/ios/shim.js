@@ -22,8 +22,9 @@ PhoneGap.shim = function(args) {
                 "title": args[ARGS][1],
                 "buttonLabel": args[ARGS][2]
             }];
-        } else if (args[ACTION] === "beep") {            
-            (new Media('beep.wav').play());  // no native implementation
+        } else if (args[ACTION] === "beep") {
+            // beep.wav must be in www folder
+            (new Media('beep.wav').play());
             return STOP_PROCESSING;
         }
     }
