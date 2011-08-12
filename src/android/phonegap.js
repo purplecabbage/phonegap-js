@@ -292,7 +292,7 @@ PG.Channel.join(function() {
     PG.Channel.join(function() {
 
         // Turn off app loading dialog
-        PG.notification.activityStop();
+        //PG.notification.activityStop();
 
         PG.onDeviceReady.fire();
 
