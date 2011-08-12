@@ -7,14 +7,10 @@
  * Copyright (c) 2010-2011, IBM Corporation
  */
 
-// Android - PG.notification
-// iOS - if (!PhoneGap.hasResource("notification")) { PhoneGap.addResource("notification");
-// Blackberry - if (typeof navigator.notification !== "undefined") {
-
 /**
  * Provides access to notifications on the device.
  */
-navigator.notification = {
+PhoneGap.notification = {
 
     /**
      * Open a native alert dialog, with a customizable title and button text.
@@ -64,3 +60,7 @@ navigator.notification = {
         PhoneGap.exec(null, null, "Notification", "beep", [count]);
     }
 };
+
+if (!navigator.notification) {
+    navigator.notification = PhoneGap.notification;
+}
