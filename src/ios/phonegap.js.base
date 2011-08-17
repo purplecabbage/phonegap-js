@@ -127,7 +127,12 @@ PhoneGap.callbackStatus = {
  */
 PhoneGap.exec = function() { 
 	
-    PhoneGap.queue.commands.push(arguments);
+    var  args = PhoneGap.shim(arguments);
+    if (args === -1) {
+       return;
+    }
+
+    PhoneGap.queue.commands.push(args);
     if (PhoneGap.queue.timer == null)
         PhoneGap.queue.timer = setInterval(PhoneGap.run_command, 10);
 };

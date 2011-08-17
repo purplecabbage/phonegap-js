@@ -47,6 +47,9 @@ var PG = {
     }
 };
 
+// alias PG to PhoneGap for compatibilty with common JS
+var PhoneGap = PG;
+
 /**
  * Custom pub-sub channel that can have functions subscribed to it
  * @constructor
@@ -289,7 +292,7 @@ PG.Channel.join(function() {
     PG.Channel.join(function() {
 
         // Turn off app loading dialog
-        PG.notification.activityStop();
+        //PG.notification.activityStop();
 
         PG.onDeviceReady.fire();
 

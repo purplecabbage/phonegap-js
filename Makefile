@@ -89,7 +89,8 @@ IOS_PHONEGAP_FILES = src/ios/GetFunctionName.js \
                      src/ios/orientation.js \
                      src/ios/sms.js \
                      src/ios/telephony.js \
-                     src/ios/network.js
+                     src/ios/network.js \
+                     src/ios/shim.js
 
 help:
 	echo
